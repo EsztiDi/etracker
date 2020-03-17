@@ -1,0 +1,18 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ETracker - A Ticket Tracker Project</title>
+    <link rel="stylesheet" href="/fontawesome-free-5.12.0-web/css/all.css" />
+    <link rel="stylesheet" href="{% static 'styles/styles.css' %}" />
+  </head>
+  <body>
+    <header>
+      <h1>Welcome to ETracker!</h1>
+      <h2>A ticket tracker project</h2>
+    </header>
+    {% block content %}{% endblock %}
+  </body>
+</html>
