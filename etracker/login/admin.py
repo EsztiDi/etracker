@@ -1,3 +1,5 @@
 from django.contrib import admin
 
-# Register your models here.
+admin.site.site_header = "ETracker Admin"
+admin.site.site_title = "ETracker Admin"
+admin.site.index_title = "Welcome to the ETracker admin area!"
