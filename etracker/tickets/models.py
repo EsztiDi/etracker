@@ -17,11 +17,11 @@ class Ticket(models.Model):
   ]
   users = User.objects.all().values_list('username', flat=True)
   assignee_choices = [
-    (num, name) for num, name in enumerate(users) if User.objects.get(username=name).is_active
+    (num, name) for num, name in enumerate(users, 1) if User.objects.get(username=name).is_active
   ]
 
-  status = models.CharField(max_length=10, choices=status_choices)
-  priority = models.CharField(max_length=10, choices=priority_choices)
+  status = models.CharField(max_length=10, choices=status_choices, blank=False, default="1")
+  priority = models.CharField(max_length=10, choices=priority_choices, blank=False, default="1")
   description = models.CharField(max_length=255)
   details = models.TextField()
   assignee = models.CharField(max_length=255, choices=assignee_choices)
