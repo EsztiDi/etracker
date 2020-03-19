@@ -1,4 +1,7 @@
 {% extends "base.html" %} {% block content %}
+<a href="{% url 'admin:login' %}">
+  <button class="adminlogin">Admin Login</button>
+</a>
 <div class="login">
   <h1>Welcome to ETracker!</h1>
   <h3>An issue tracker project by ET</h3>
@@ -13,7 +16,7 @@
   <p>Please log in to see this page.</p>
   {% endif %} {% endif %}
 
-  <form method="POST" action=".">
+  <form method="POST" action="{% url 'login:login' %}">
     {% csrf_token %}
     <p>{{ form.username.label_tag }} {{ form.username }}</p>
     <p>{{ form.password.label_tag }} {{ form.password }}</p>
