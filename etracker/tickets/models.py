@@ -21,6 +21,7 @@ class Ticket(models.Model):
     assignee_choices = [
         (num, str(name)) for num, name in enumerate(users, 1) if User.objects.get(username=str(name)).is_active
     ]
+    assignee_choices.insert(0, (0, "-"))
 
     status = models.IntegerField(
         choices=status_choices, blank=False, default=1)
@@ -30,7 +31,7 @@ class Ticket(models.Model):
         max_length=255, help_text="A short summary of the issue")
     details = models.TextField(verbose_name="More details")
     assignee = models.IntegerField(
-        null=True, blank=True, choices=assignee_choices)
+        choices=assignee_choices, blank=False, default=0)
     date_added = models.DateTimeField(auto_now_add=True)
     date_updated = models.DateTimeField(
         blank=True, null=True, verbose_name="Last updated")
