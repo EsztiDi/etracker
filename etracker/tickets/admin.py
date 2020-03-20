@@ -11,7 +11,9 @@ class TicketAdmin(admin.ModelAdmin):
     list_display = ("id", "description", "added_by",
                     "assignee", "date_updated", "date_added", )
 
-    list_filter = ("priority", "status", )
+    list_display_links = ("description", )
+
+    list_filter = ("priority", "status", "assignee", )
 
     fields = ("status", "priority", "assignee", "description", "details", )
 

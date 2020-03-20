@@ -16,12 +16,10 @@ class Ticket(models.Model):
         (3, "High"),
     ]
 
-    users = User.objects.all().values_list("username", flat=True)
+    active_users = User.objects.filter(
+        is_active=True).values_list("id", "username")
 
-    assignee_choices = [
-        (num, str(name)) for num, name in enumerate(users, 1) if User.objects.get(username=str(name)).is_active
-    ]
-    assignee_choices.insert(0, (0, "-"))
+    assignee_choices = [(0, "-")] + list(active_users)
 
     status = models.IntegerField(
         choices=status_choices, blank=False, default=1)
