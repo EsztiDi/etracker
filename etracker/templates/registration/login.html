@@ -1,7 +1,9 @@
 {% extends "base.html" %} {% block content %}
-<a href="{% url 'admin:login' %}">
-  <button class="adminlogin">Admin Login</button>
-</a>
+<div class="adminlogin">
+  <a href="{% url 'admin:login' %}">
+    <button>Admin Login</button>
+  </a>
+</div>
 <div class="login">
   <h1>Welcome to ETracker!</h1>
   <h3>An issue tracker project by ET</h3>
@@ -16,13 +18,12 @@
   <p>Please log in to see this page.</p>
   {% endif %} {% endif %}
 
-  <form method="POST" action="{% url 'login:login' %}">
+  <form method="POST" action="{% url 'login' %}">
     {% csrf_token %}
     <p>{{ form.username.label_tag }} {{ form.username }}</p>
     <p>{{ form.password.label_tag }} {{ form.password }}</p>
 
     <button type="submit"><i class="fas fa-sign-in-alt"></i> Log in</button>
-    <!-- <input type="submit" value="Log in" /> -->
     <input type="hidden" name="next" value="{{ next }}" />
   </form>
 </div>
