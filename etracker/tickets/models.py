@@ -29,10 +29,11 @@ class Ticket(models.Model):
     description = models.CharField(
         max_length=255, help_text="A short summary of the issue")
     details = models.TextField(verbose_name="More details")
-    assignee = models.IntegerField(choices=assignee_choices)
-    date_added = models.DateTimeField(default=timezone.now)
+    assignee = models.IntegerField(
+        null=True, blank=True, choices=assignee_choices)
+    date_added = models.DateTimeField(auto_now_add=True)
     date_updated = models.DateTimeField(
-        null=True, blank=True, verbose_name="Last updated")
+        blank=True, null=True, verbose_name="Last updated")
     added_by = models.ForeignKey(
         User, on_delete=models.PROTECT)
 
