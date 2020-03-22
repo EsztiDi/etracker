@@ -21,7 +21,7 @@ class Ticket(models.Model):
     priority = models.IntegerField(
         choices=priority_choices, blank=False, default=1)
     assignee = models.ForeignKey(
-        settings.AUTH_USER_MODEL, on_delete=models.PROTECT, limit_choices_to={"is_active": True},  related_name="assigned_tickets", blank=True, null=True)
+        settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, limit_choices_to={"is_active": True},  related_name="assigned_tickets", blank=True, null=True)
     description = models.CharField(
         max_length=255, help_text="A short summary of the issue")
     details = models.TextField("More details")

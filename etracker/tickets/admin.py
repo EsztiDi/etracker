@@ -1,4 +1,6 @@
 from django.contrib import admin
+from django.contrib.auth.models import User
+from django.contrib.auth.admin import UserAdmin
 from django.utils import timezone
 from .models import Ticket
 
@@ -28,4 +30,14 @@ class TicketAdmin(admin.ModelAdmin):
         obj.save()
 
 
+class CustomUserAdmin(UserAdmin):
+
+    def save_model(self, request, obj, form, change):
+        if "is_active" in form.changed_data:
+            Ticket.objects.filter(assignee_id=obj.id).update(assignee=None)
+        super(CustomUserAdmin, self).save_model(request, obj, form, change)
+
+
+admin.site.unregister(User)
+admin.site.register(User, CustomUserAdmin)
 admin.site.register(Ticket, TicketAdmin)
