@@ -21,7 +21,7 @@ class Ticket(models.Model):
     priority = models.IntegerField(
         choices=priority_choices, blank=False, default=1)
     assignee = models.ForeignKey(
-        settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, limit_choices_to={"is_active": True},  related_name="assigned_tickets", blank=True, null=True)
+        settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, related_name="assigned_tickets", limit_choices_to={"is_active": True},  blank=True, null=True)
     description = models.CharField(
         max_length=255, help_text="A short summary of the issue")
     details = models.TextField("More details")
@@ -29,11 +29,23 @@ class Ticket(models.Model):
     date_updated = models.DateTimeField("Last updated",
                                         blank=True, null=True)
     added_by = models.ForeignKey(
-        settings.AUTH_USER_MODEL, on_delete=models.PROTECT, related_name="my_tickets")
+        settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, related_name="my_tickets", blank=True, null=True)
 
-    def update(self):
+    def edit(self):
         self.date_updated = timezone.now()
         self.save()
 
     def __str__(self):
         return self.description
+
+
+class Comment(models.Model):
+    text = models.TextField("Comment")
+    date = models.DateTimeField(auto_now_add=True)
+    commenter = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, related_name="my_comments", blank=True, null=True, verbose_name="User")
+    ticket = models.ForeignKey(
+        Ticket, on_delete=models.CASCADE, related_name="comments")
+
+    def __str__(self):
+        return self.text
