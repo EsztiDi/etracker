@@ -1,3 +1,7 @@
 from django.shortcuts import render
+from .models import Ticket, Comment
 
-# Create your views here.
+
+def index(request):
+    tickets = Ticket.objects.all()
+    return render(request, "tickets/index.html", {"tickets": tickets})

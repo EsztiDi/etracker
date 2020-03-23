@@ -18,6 +18,7 @@ from django.urls import path, include
 from django.contrib.auth import views
 
 urlpatterns = [
+    path("", include("tickets.urls")),
     path("", views.LoginView.as_view(), name="login"),
     path('admin/', admin.site.urls),
 ]

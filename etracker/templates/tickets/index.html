@@ -1,2 +1,11 @@
 {% extends "base.html" %} {% block title %}Home{% endblock%} {% block content %}
+<div>
+  {% for ticket in tickets %}
+  <p>
+    {{ticket.pk}} - {{ticket}} {{ticket.get_status_display}}
+    {{ticket.get_priority_display}} {{ticket.assignee.username}}
+  </p>
+  {% endfor %}
+</div>
+
 {% endblock %}
