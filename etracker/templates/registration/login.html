@@ -17,7 +17,7 @@
   <p>Please log in to see this page.</p>
   {% endif %} {% endif %}
 
-  <form method="POST" action="{% url 'login' %}">
+  <form method="POST" action="{% url 'tickets:login' %}">
     {% csrf_token %}
     <p>{{ form.username.label_tag }} {{ form.username }}</p>
     <p>{{ form.password.label_tag }} {{ form.password }}</p>

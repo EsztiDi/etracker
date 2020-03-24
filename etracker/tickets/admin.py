@@ -5,7 +5,7 @@ from django.utils import timezone
 from .models import Ticket, Comment
 
 admin.site.site_header = "ETracker Admin"
-admin.site.site_title = "ETracker Admin"
+admin.site.site_title = "ETracker Admin Area"
 admin.site.index_title = "Welcome to the ETracker admin area!"
 
 
