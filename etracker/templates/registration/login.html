@@ -1,9 +1,6 @@
 {% extends "base.html" %} {% block title %}An Issue Tracker Project{% endblock%}
 {% block content %}
-<div class="adminlogin">
-  <a href="{% url 'admin:login' %}">Admin Login</a>
-</div>
-<div class="login">
+<main id="loginpanel">
   <h1>Welcome to ETracker!</h1>
   <h3>An issue tracker project by ET</h3>
   {% if form.errors %}
@@ -21,10 +18,15 @@
     {% csrf_token %}
     <p>{{ form.username.label_tag }} {{ form.username }}</p>
     <p>{{ form.password.label_tag }} {{ form.password }}</p>
-
-    <button type="submit"><i class="fas fa-sign-in-alt"></i> Log in</button>
+    <p>
+      <button type="submit"><i class="fas fa-sign-in-alt"></i> Log in</button>
+    </p>
     <input type="hidden" name="next" value="{{ next }}" />
   </form>
-</div>
+  <p>or</p>
+  <p>
+    <a href="{% url 'admin:login' %}">Admin Login</a>
+  </p>
+</main>
 
 {% endblock %}

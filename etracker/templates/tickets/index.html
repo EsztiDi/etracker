@@ -1,8 +1,66 @@
 {% extends "base.html" %} {% block title %}Home{% endblock %} {% block content%}
 {% include "partials/_navbar.html" %}
 <main>
-  <h1>ETracker</h1>
-  <h3>Hello, {{user.username}}!</h3>
+  <header>
+    <h1>ETracker - Home</h1>
+  </header>
+  <section>
+    <header>
+      My tickets
+    </header>
+    <div>
+      {% for ticket in tickets %}
+      <p>
+        {{ticket.pk}} - {{ticket.get_status_display}}
+        {{ticket.get_priority_display}} {{ticket.assignee.username}}
+        {{ticket.details}}
+      </p>
+      {% endfor %}
+    </div>
+  </section>
+
+  <section>
+    <header>
+      My tickets
+    </header>
+    <div>
+      {% for ticket in tickets %}
+      <p>
+        {{ticket.pk}} - {{ticket.get_status_display}}
+        {{ticket.get_priority_display}} {{ticket.assignee.username}}
+        {{ticket.details}}
+      </p>
+      {% endfor %}
+    </div>
+  </section>
+  <section>
+    <header>
+      My tickets
+    </header>
+    <div>
+      {% for ticket in tickets %}
+      <p>
+        {{ticket.pk}} - {{ticket.get_status_display}}
+        {{ticket.get_priority_display}} {{ticket.assignee.username}}
+        {{ticket.details}}
+      </p>
+      {% endfor %}
+    </div>
+  </section>
+  <section>
+    <header>
+      My tickets
+    </header>
+    <div>
+      {% for ticket in tickets %}
+      <p>
+        {{ticket.pk}} - {{ticket.get_status_display}}
+        {{ticket.get_priority_display}} {{ticket.assignee.username}}
+        {{ticket.details}}
+      </p>
+      {% endfor %}
+    </div>
+  </section>
   <section>
     <header>
       My tickets
