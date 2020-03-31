@@ -36,8 +36,8 @@ class Ticket(models.Model):
         self.save()
 
     def __str__(self):
-        detailed = " - ".join([str(self.pk), self.get_status_display(), self.get_priority_display(
-        ), self.description, self.assignee.username, self.date_added.strftime("%d/%m/%Y, %H:%M")])
+        # detailed = " - ".join([str(self.pk), self.get_status_display(), self.get_priority_display(
+        # ), self.description, self.assignee.username, self.date_added.strftime("%d/%m/%Y, %H:%M")])
         return self.description
 
 

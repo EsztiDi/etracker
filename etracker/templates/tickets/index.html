@@ -2,79 +2,205 @@
 {% include "partials/_navbar.html" %}
 <main>
   <header>
-    <h1>ETracker - Home</h1>
+    <h2>ETracker - Home</h2>
   </header>
   <section>
     <header>
-      My tickets
+      <h3>My tickets ({{my_tickets.count}})</h3>
     </header>
-    <div>
-      {% for ticket in tickets %}
-      <p>
-        {{ticket.pk}} - {{ticket.get_status_display}}
-        {{ticket.get_priority_display}} {{ticket.assignee.username}}
-        {{ticket.details}}
-      </p>
-      {% endfor %}
-    </div>
-  </section>
-
-  <section>
-    <header>
-      My tickets
-    </header>
-    <div>
-      {% for ticket in tickets %}
-      <p>
-        {{ticket.pk}} - {{ticket.get_status_display}}
-        {{ticket.get_priority_display}} {{ticket.assignee.username}}
-        {{ticket.details}}
-      </p>
-      {% endfor %}
-    </div>
-  </section>
-  <section>
-    <header>
-      My tickets
-    </header>
-    <div>
-      {% for ticket in tickets %}
-      <p>
-        {{ticket.pk}} - {{ticket.get_status_display}}
-        {{ticket.get_priority_display}} {{ticket.assignee.username}}
-        {{ticket.details}}
-      </p>
-      {% endfor %}
-    </div>
-  </section>
-  <section>
-    <header>
-      My tickets
-    </header>
-    <div>
-      {% for ticket in tickets %}
-      <p>
-        {{ticket.pk}} - {{ticket.get_status_display}}
-        {{ticket.get_priority_display}} {{ticket.assignee.username}}
-        {{ticket.details}}
-      </p>
-      {% endfor %}
-    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>No.</th>
+          <th>Priority</th>
+          <th>Status</th>
+          <th>Description</th>
+          <th>Assignee</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for ticket in my_tickets %}
+        <tr class="accordion">
+          <td>{{ticket.pk}}</td>
+          <td>{{ticket.get_priority_display}}</td>
+          <td>{{ticket.get_status_display}}</td>
+          <td>{{ticket}}</td>
+          <td>{{ticket.assignee.username|default:"-"}}</td>
+        </tr>
+        <tr>
+          <td colspan="5">
+            <div class="details">
+              <div class="details-row">
+                <h4>Details</h4>
+                <p>{{ticket.details}}</p>
+              </div>
+              <p>Date added: {{ticket.date_added|date:"d/m/y"}}</p>
+              <p>
+                Last updated: {{ticket.date_updated|date:"d/m/y"|default:"-"}}
+              </p>
+              <p>Added by: {{ticket.added_by}}</p>
+              <div class="comments-row">
+                <h4>Comments ({{ticket.comments.all.count}})</h4>
+                {% for comment in ticket.comments.all %}
+                <p>
+                  {{comment}} - {{comment.commenter}},
+                  {{comment.date|date:"d/m/y"}}
+                </p>
+                {% endfor %}
+              </div>
+            </div>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
   </section>
   <section>
     <header>
-      My tickets
+      <h3>Assigned to me ({{assigned_tickets.count}})</h3>
     </header>
-    <div>
-      {% for ticket in tickets %}
-      <p>
-        {{ticket.pk}} - {{ticket.get_status_display}}
-        {{ticket.get_priority_display}} {{ticket.assignee.username}}
-        {{ticket.details}}
-      </p>
-      {% endfor %}
-    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>No.</th>
+          <th>Priority</th>
+          <th>Status</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for ticket in assigned_tickets %}
+        <tr class="accordion">
+          <td>{{ticket.pk}}</td>
+          <td>{{ticket.get_priority_display}}</td>
+          <td>{{ticket.get_status_display}}</td>
+          <td>{{ticket}}</td>
+        </tr>
+        <tr>
+          <td colspan="5">
+            <div class="details">
+              <div class="details-row">
+                <h4>Details</h4>
+                <p>{{ticket.details}}</p>
+              </div>
+              <p>Date added: {{ticket.date_added|date:"d/m/y"}}</p>
+              <p>
+                Last updated: {{ticket.date_updated|date:"d/m/y"|default:"-"}}
+              </p>
+              <p>Added by: {{ticket.added_by}}</p>
+              <div class="comments-row">
+                <h4>Comments ({{ticket.comments.all.count}})</h4>
+                {% for comment in ticket.comments.all %}
+                <p>
+                  {{comment}} - {{comment.commenter}},
+                  {{comment.date|date:"d/m/y"}}
+                </p>
+                {% endfor %}
+              </div>
+            </div>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </section>
+  <section>
+    <header>
+      <h3>New tickets ({{new_tickets.count}})</h3>
+    </header>
+    <table>
+      <thead>
+        <tr>
+          <th>No.</th>
+          <th>Priority</th>
+          <th>Description</th>
+          <th>Assignee</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for ticket in new_tickets %}
+        <tr class="accordion">
+          <td>{{ticket.pk}}</td>
+          <td>{{ticket.get_priority_display}}</td>
+          <td>{{ticket}}</td>
+          <td>{{ticket.assignee.username|default:"-"}}</td>
+        </tr>
+        <tr>
+          <td colspan="5">
+            <div class="details">
+              <div class="details-row">
+                <h4>Details</h4>
+                <p>{{ticket.details}}</p>
+              </div>
+              <p>Date added: {{ticket.date_added|date:"d/m/y"}}</p>
+              <p>
+                Last updated: {{ticket.date_updated|date:"d/m/y"|default:"-"}}
+              </p>
+              <p>Added by: {{ticket.added_by}}</p>
+              <div class="comments-row">
+                <h4>Comments ({{ticket.comments.all.count}})</h4>
+                {% for comment in ticket.comments.all %}
+                <p>
+                  {{comment}} - {{comment.commenter}},
+                  {{comment.date|date:"d/m/y"}}
+                </p>
+                {% endfor %}
+              </div>
+            </div>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </section>
+  <section>
+    <header>
+      <h3>Unassigned ({{unassigned.count}})</h3>
+    </header>
+    <table>
+      <thead>
+        <tr>
+          <th>No.</th>
+          <th>Priority</th>
+          <th>Status</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for ticket in unassigned %}
+        <tr class="accordion">
+          <td>{{ticket.pk}}</td>
+          <td>{{ticket.get_priority_display}}</td>
+          <td>{{ticket.get_status_display}}</td>
+          <td>{{ticket}}</td>
+        </tr>
+        <tr>
+          <td colspan="5">
+            <div class="details">
+              <div class="details-row">
+                <h4>Details</h4>
+                <p>{{ticket.details}}</p>
+              </div>
+              <p>Date added: {{ticket.date_added|date:"d/m/y"}}</p>
+              <p>
+                Last updated: {{ticket.date_updated|date:"d/m/y"|default:"-"}}
+              </p>
+              <p>Added by: {{ticket.added_by}}</p>
+              <div class="comments-row">
+                <h4>Comments ({{ticket.comments.all.count}})</h4>
+                {% for comment in ticket.comments.all %}
+                <p>
+                  {{comment}} - {{comment.commenter}},
+                  {{comment.date|date:"d/m/y"}}
+                </p>
+                {% endfor %}
+              </div>
+            </div>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
   </section>
 </main>
-
 {% endblock %}

@@ -15,6 +15,7 @@
       src="https://kit.fontawesome.com/93a0a9db14.js"
       crossorigin="anonymous"
     ></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <link rel="stylesheet" href="{% static 'styles/styles.css' %}" />
   </head>
   <body>
@@ -27,6 +28,24 @@
         document.body.id = "login";
       } else {
         document.body.id = "user";
+      }
+
+      var acc = document.getElementsByClassName("accordion");
+      var i;
+      for (i = 0; i < acc.length; i++) {
+        acc[i].addEventListener("click", function() {
+          this.classList.toggle("active");
+          var hidden = this.nextElementSibling;
+          if (hidden.style.display === "table-row") {
+            hidden.style.animation = "var(--disappearAnimation)";
+            setTimeout(() => {
+              hidden.style.display = "none";
+            }, 250);
+          } else {
+            hidden.style.animation = "var(--appearAnimation)";
+            hidden.style.display = "table-row";
+          }
+        });
       }
     </script>
   </body>
