@@ -31,7 +31,7 @@ class Ticket(models.Model):
     added_by = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, related_name="my_tickets", blank=True, null=True)
 
-    def edit(self):
+    def edited(self):
         self.date_updated = timezone.now()
         self.save()
 

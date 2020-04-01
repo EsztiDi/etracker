@@ -1,0 +1,16 @@
+{% extends "base.html" %} {% block title %}New Ticket{% endblock %} {% block content%} {% include "partials/_navbar.html" %}
+<main>
+  <header>
+    <h2>ETracker - New Ticket</h2>
+  </header>
+  <section class="new-ticket">
+    <form method="POST">
+      {% csrf_token %} {{ form.as_p }}
+      <p class="buttons">
+        <button type="submit">Save</button>
+        <button onclick="window.location.reload()">Clear fields</button>
+      </p>
+    </form>
+  </section>
+</main>
+{% endblock %}

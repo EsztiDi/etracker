@@ -24,10 +24,14 @@
       <p>Copyright &copy; 2020, Eszter Diana Toth</p>
     </footer>
     <script>
-      if (window.location.href == "http://127.0.0.1:8000/") {
+      if (window.location.href == "http://127.0.0.1:8000/" || window.location.href.includes("http://127.0.0.1:8000/?next=/")) {
         document.body.id = "login";
       } else {
         document.body.id = "user";
+      }
+
+      if (window.location.href == "http://127.0.0.1:8000/new/") {
+        document.getElementById("id_description").placeholder = document.getElementsByClassName("helptext")[0].innerText;
       }
 
       var acc = document.getElementsByClassName("accordion");

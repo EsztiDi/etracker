@@ -8,6 +8,7 @@
     <header>
       <h3>My tickets ({{my_tickets.count}})</h3>
     </header>
+    {% if my_tickets %}
     <table>
       <thead>
         <tr>
@@ -54,11 +55,15 @@
         {% endfor %}
       </tbody>
     </table>
+    {% else %}
+    <p>No active tickets.</p>
+    {% endif %}
   </section>
   <section>
     <header>
       <h3>Assigned to me ({{assigned_tickets.count}})</h3>
     </header>
+    {% if assigned_tickets %}
     <table>
       <thead>
         <tr>
@@ -103,11 +108,15 @@
         {% endfor %}
       </tbody>
     </table>
+    {% else %}
+    <p>No active tickets.</p>
+    {% endif %}
   </section>
   <section>
     <header>
       <h3>New tickets ({{new_tickets.count}})</h3>
     </header>
+    {% if new_tickets %}
     <table>
       <thead>
         <tr>
@@ -152,11 +161,15 @@
         {% endfor %}
       </tbody>
     </table>
+    {% else %}
+    <p>No new ticket has been added.</p>
+    {% endif %}
   </section>
   <section>
     <header>
       <h3>Unassigned ({{unassigned.count}})</h3>
     </header>
+    {% if unassigned %}
     <table>
       <thead>
         <tr>
@@ -201,6 +214,9 @@
         {% endfor %}
       </tbody>
     </table>
+    {% else %}
+    <p>No unassigned tickets. Yay!</p>
+    {% endif %}
   </section>
 </main>
 {% endblock %}
