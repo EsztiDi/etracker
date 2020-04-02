@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Edit Ticket{% endblock%}
+{% block content %}
+<main id="edit">
+  <form method="POST" id="editform">
+      {% csrf_token %}
+      {{ edit_form.as_p }}
+      <p class="buttons">
+        <button type="submit">Save</button>
+        <button type="reset">Cancel</button>
+      </p>
+  </form>
+</main>
+{% endblock %}

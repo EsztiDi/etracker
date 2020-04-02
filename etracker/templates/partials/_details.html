@@ -1,0 +1,20 @@
+<div class="details">
+  <!-- <a href="{% url 'tickets:edit' ticket_id=ticket.pk %}" target="Edit ticket {{ticket.pk}}">Edit</a> -->
+  <iframe src="{% url 'tickets:edit' ticket_id=ticket.pk %}" name="Edit ticket {{ticket.pk}}"></iframe>
+  <div class="details-row">
+    <h4>Details</h4>
+    <p>{{ticket.details}}</p>
+  </div>
+  <p>Date added: {{ticket.date_added|date:"d/m/y"}}</p>
+  <p>Last updated: {{ticket.date_updated|date:"d/m/y"|default:"-"}}</p>
+  <p>Added by: {{ticket.added_by}}</p>
+  <div class="comments-row">
+    <h4>Comments ({{ticket.comments.all.count}})</h4>
+    {% for comment in ticket.comments.all %}
+    <p>
+      {{comment}} - {{comment.commenter}},
+      {{comment.date|date:"d/m/y"}}
+    </p>
+    {% endfor %}
+  </div>
+</div>
