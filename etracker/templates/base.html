@@ -21,7 +21,7 @@
   <body>
     {% block content %}{% endblock %}
     <footer>
-      <p>Copyright &copy; 2020, Eszter Diana Toth</p>
+      <p>Copyright &copy; {% now "Y" %}, Eszter Diana Toth</p>
     </footer>
     <script>
       if (window.location.href == "http://127.0.0.1:8000/" || window.location.href.includes("http://127.0.0.1:8000/?next=/") || window.location.href.includes("/edit/")) {

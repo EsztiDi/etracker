@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.clickjacking import xframe_options_sameorigin
 from django.utils import timezone
 from .models import Ticket, Comment
-from .forms import TicketForm, EditForm
+from .forms import TicketForm, EditForm, CommentForm
 
 
 @login_required
@@ -13,9 +13,12 @@ def index(request):
                                                                     "-date_added")
     unassigned = Ticket.objects.filter(assignee=None).exclude(status=4).order_by("-date_added")
     new_tickets = Ticket.objects.filter(status=1).order_by("-date_added")
-    
+
+    total = len(my_tickets) + len(assigned_tickets) + len(unassigned) + len(new_tickets)
+    numbers = range(total)
+
     context = {"my_tickets": my_tickets,
-               "assigned_tickets": assigned_tickets, "unassigned": unassigned, "new_tickets": new_tickets}
+               "assigned_tickets": assigned_tickets, "unassigned": unassigned, "new_tickets": new_tickets, "numbers": numbers, "total": total}
 
     return render(request, "tickets/index.html", context)
 
@@ -56,3 +59,19 @@ def edit_ticket(request, ticket_id):
     else:
         edit_form = TicketForm(instance=ticket)
     return render(request, "tickets/edit_ticket.html", {"edit_form": edit_form})
+
+
+@login_required
+@xframe_options_sameorigin
+def add_comment(request, ticket_id):
+    ticket = get_object_or_404(Ticket, pk=ticket_id)
+    if request.method == 'POST':
+        comment_form = CommentForm(request.POST)
+        if comment_form.is_valid():
+            comment = comment_form.save(commit=False)
+            comment.ticket = ticket
+            comment.commenter = request.user
+            comment.save()
+    else:
+        comment_form = CommentForm()
+    return render(request, "tickets/add_comment.html", {"comment_form": comment_form})

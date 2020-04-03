@@ -1,9 +1,9 @@
 <div class="details">
-  <!-- <a href="{% url 'tickets:edit' ticket_id=ticket.pk %}" target="Edit ticket {{ticket.pk}}">Edit</a> -->
-  <iframe src="{% url 'tickets:edit' ticket_id=ticket.pk %}" name="Edit ticket {{ticket.pk}}"></iframe>
+  <a href="{% url 'tickets:edit' ticket_id=ticket.pk %}" target="edit_ticket_{{ticket.pk}}"><button>Edit</button></a>
+  <iframe src="about:blank" name="edit_ticket_{{ticket.pk}}"></iframe>
   <div class="details-row">
     <h4>Details</h4>
-    <p>{{ticket.details}}</p>
+    <p>{{ticket.details|linebreaksbr}}</p>
   </div>
   <p>Date added: {{ticket.date_added|date:"d/m/y"}}</p>
   <p>Last updated: {{ticket.date_updated|date:"d/m/y"|default:"-"}}</p>
@@ -17,4 +17,5 @@
     </p>
     {% endfor %}
   </div>
+  <iframe src="{% url 'tickets:comment' ticket_id=ticket.pk %}" name="comment_on_{{ticket.pk}}"></iframe>
 </div>

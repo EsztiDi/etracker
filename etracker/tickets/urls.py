@@ -10,5 +10,6 @@ urlpatterns = [
     path("home/", views.index, name="home"),
     path("tickets/", views.tickets, name="tickets"),
     path("new/", views.new_ticket, name="new"),
-    path("edit/<int:ticket_id>/", views.edit_ticket, name="edit"),
+    path("<int:ticket_id>/edit/", views.edit_ticket, name="edit"),
+    path("<int:ticket_id>/comment/", views.add_comment, name="comment"),
 ]

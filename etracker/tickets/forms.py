@@ -1,5 +1,5 @@
 from django import forms
-from .models import Ticket
+from .models import Ticket, Comment
 
 
 class TicketForm(forms.ModelForm):
@@ -14,3 +14,10 @@ class EditForm(forms.ModelForm):
     class Meta:
         model = Ticket
         fields = ("status", "priority", "assignee", )
+    
+
+class CommentForm(forms.ModelForm):
+
+    class Meta:
+        model = Comment
+        fields = ("text", )
