@@ -9,7 +9,9 @@ urlpatterns = [
     path("logout/", auth_views.logout_then_login, name="logout"),
     path("home/", views.index, name="home"),
     path("tickets/", views.tickets, name="tickets"),
-    path("new/", views.new_ticket, name="new"),
-    path("<int:ticket_id>/edit/", views.edit_ticket, name="edit"),
-    path("<int:ticket_id>/comment/", views.add_comment, name="comment"),
+    path("ticket/new/", views.new_ticket, name="new"),
+    path("ticket/<int:ticket_id>/edit/", views.edit_ticket, name="edit"),
+    path("ticket/<int:ticket_id>/comment/", views.add_comment, name="comment"),
+    path("ticket/<int:ticket_id>/delete/", views.delete_ticket, name="delete_ticket"),
+    path("comment/<int:comment_id>/delete/", views.delete_comment, name="delete_comment"),
 ]

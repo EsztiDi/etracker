@@ -22,9 +22,6 @@ def index(request):
 
     return render(request, "tickets/index.html", context)
 
-    # fields = Ticket._meta.get_fields()
-    # {{field.verbose_name.title}}
-
 
 @login_required
 def tickets(request):
@@ -40,7 +37,7 @@ def new_ticket(request):
             new = form.save(commit=False)
             new.added_by = request.user
             new.save()
-            return redirect("/tickets/")
+            return redirect("/home/")
     else:
         form = TicketForm()
     return render(request, "tickets/new_ticket.html", {"form": form})
@@ -75,3 +72,18 @@ def add_comment(request, ticket_id):
     else:
         comment_form = CommentForm()
     return render(request, "tickets/add_comment.html", {"comment_form": comment_form})
+
+
+@login_required
+def delete_ticket(request, ticket_id):
+    ticket = get_object_or_404(Ticket, pk=ticket_id)
+    ticket.delete()
+    return redirect("/home/")
+
+
+@login_required
+def delete_comment(request, comment_id):
+    comment = get_object_or_404(Comment, pk=comment_id)
+    comment.delete()
+    return redirect("/home/")
+

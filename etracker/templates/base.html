@@ -24,7 +24,7 @@
       <p>Copyright &copy; {% now "Y" %}, Eszter Diana Toth</p>
     </footer>
     <script>
-      if (window.location.href == "http://127.0.0.1:8000/" || window.location.href.includes("http://127.0.0.1:8000/?next=/") || window.location.href.includes("/edit/")) {
+      if (window.location.href == "http://127.0.0.1:8000/" || window.location.href.includes("http://127.0.0.1:8000/?next=/") || window.location.href.includes("/edit/") || window.location.href.includes("/comment/")) {
         document.body.id = "login";
       } else {
         document.body.id = "user";
@@ -51,6 +51,20 @@
           }
         });
       }
+
+            // var edit_links = document.getElementsByClassName("edit_link");
+      // var comment_links = document.getElementsByClassName("comment_link");
+      // var edit_iframes = document.getElementsByClassName("edit_iframe");
+      // var comment_iframes = document.getElementsByClassName("comment_iframe");
+      
+      // for (i = 0; i < edit_links.length; i++) {
+      //   edit_links[i].addEventListener("open", function() {
+      //     this.target = Date.now();
+      //     this.nextElementSibling.name = this.target;
+      //   });
+      // }
+
+
     </script>
   </body>
 </html>

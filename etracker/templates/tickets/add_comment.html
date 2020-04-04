@@ -4,9 +4,9 @@
 <main id="edit">
   <form method="POST" id="editform">
       {% csrf_token %}
-      {{ comment_form.as_p }}
+      {{ comment_form.text }}
       <p class="buttons">
-        <button type="submit" onclick="window.parent.location.reload()">Save</button>
+        <button type="submit" onclick="window.parent.location.reload(forceGet=true)">Save</button>
         <button type="reset">Cancel</button>
       </p>
   </form>
