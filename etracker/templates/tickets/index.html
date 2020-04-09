@@ -1,146 +1,165 @@
-{% extends "base.html" %} {% block title %}Home{% endblock %} {% block content%}
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+{% block content %}
 {% include "partials/_navbar.html" %}
 <main>
   <header>
     <h2>ETracker - Home</h2>
   </header>
+  {% with section="my_ticket" %}
   <section>
     <header>
       <h3>My tickets ({{my_tickets.count}})</h3>
     </header>
     {% if my_tickets %}
-    <table>
-      <thead>
-        <tr>
-          <th>No.</th>
-          <th>Priority</th>
-          <th>Status</th>
-          <th>Description</th>
-          <th>Assignee</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for ticket in my_tickets %}
-        <tr class="accordion">
-          <td>{{ticket.pk}}</td>
-          <td>{{ticket.get_priority_display}}</td>
-          <td>{{ticket.get_status_display}}</td>
-          <td>{{ticket}}</td>
-          <td>{{ticket.assignee.username|default:"-"}}</td>
-        </tr>
-        <tr>
-          <td colspan="5">
+    <div class="row head main">
+      <div class="cell-1">No.</div>
+      <div class="cell-2">Priority</div>
+      <div class="cell-3">Status</div>
+      <div class="cell-4">Description</div>
+      <div class="cell-5">Assignee</div>
+    </div>
+    {% for ticket in my_tickets %}
+    <div class="row head hidden">
+      <div class="cell-1">No.</div>
+      <div class="cell-2">Priority</div>
+      <div class="cell-3">Status</div>
+      <div class="cell-4">Description</div>
+      <div class="cell-5">Assignee</div>
+    </div>
+    <div class="row accordion">
+      <div class="cell-1">{{ticket.pk}}</div>
+      <div class="cell-2">{{ticket.get_priority_display}}</div>
+      <div class="cell-3">{{ticket.get_status_display}}</div>
+      <div class="cell-4">{{ticket}}</div>
+      <div class="cell-5">{{ticket.assignee.username|default:"-"}}</div>
+    </div>
+    <div class="container-1">
+      <div class="container-2">
+        <div class="details">
           {% include "partials/_details.html" %}
-          </td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
     {% else %}
     <p>No active tickets.</p>
     {% endif %}
   </section>
+  {% endwith %}
+  {% with section="assigned_ticket" %}
   <section>
     <header>
       <h3>Assigned to me ({{assigned_tickets.count}})</h3>
     </header>
     {% if assigned_tickets %}
-    <table>
-      <thead>
-        <tr>
-          <th>No.</th>
-          <th>Priority</th>
-          <th>Status</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for ticket in assigned_tickets %}
-        <tr class="accordion">
-          <td>{{ticket.pk}}</td>
-          <td>{{ticket.get_priority_display}}</td>
-          <td>{{ticket.get_status_display}}</td>
-          <td>{{ticket}}</td>
-        </tr>
-        <tr>
-          <td colspan="5">
+    <div class="row head main">
+      <div class="cell-1">No.</div>
+      <div class="cell-2">Priority</div>
+      <div class="cell-3">Status</div>
+      <div class="cell-4">Description</div>
+    </div>
+    {% for ticket in assigned_tickets %}
+    <div class="row head hidden">
+      <div class="cell-1">No.</div>
+      <div class="cell-2">Priority</div>
+      <div class="cell-3">Status</div>
+      <div class="cell-4">Description</div>
+    </div>
+    <div class="row accordion">
+      <div class="cell-1">{{ticket.pk}}</div>
+      <div class="cell-2">{{ticket.get_priority_display}}</div>
+      <div class="cell-3">{{ticket.get_status_display}}</div>
+      <div class="cell-4">{{ticket}}</div>
+    </div>
+    <div class="container-1">
+      <div class="container-2">
+        <div class="details">
           {% include "partials/_details.html" %}
-          </td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
     {% else %}
     <p>No active tickets.</p>
     {% endif %}
   </section>
+  {% endwith %}
+  {% with section="new_ticket" %}
   <section>
     <header>
       <h3>New tickets ({{new_tickets.count}})</h3>
     </header>
     {% if new_tickets %}
-    <table>
-      <thead>
-        <tr>
-          <th>No.</th>
-          <th>Priority</th>
-          <th>Description</th>
-          <th>Assignee</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for ticket in new_tickets %}
-        <tr class="accordion">
-          <td>{{ticket.pk}}</td>
-          <td>{{ticket.get_priority_display}}</td>
-          <td>{{ticket}}</td>
-          <td>{{ticket.assignee.username|default:"-"}}</td>
-        </tr>
-        <tr>
-          <td colspan="5">
+    <div class="row head main">
+      <div class="cell-1">No.</div>
+      <div class="cell-2">Priority</div>
+      <div class="cell-4">Description</div>
+      <div class="cell-5">Assignee</div>
+    </div>
+    {% for ticket in new_tickets %}
+    <div class="row head hidden">
+      <div class="cell-1">No.</div>
+      <div class="cell-2">Priority</div>
+      <div class="cell-4">Description</div>
+      <div class="cell-5">Assignee</div>
+    </div>
+    <div class="row accordion">
+      <div class="cell-1">{{ticket.pk}}</div>
+      <div class="cell-2">{{ticket.get_priority_display}}</div>
+      <div class="cell-4">{{ticket}}</div>
+      <div class="cell-5">{{ticket.assignee.username|default:"-"}}</div>
+    </div>
+    <div class="container-1">
+      <div class="container-2">
+        <div class="details">
           {% include "partials/_details.html" %}
-          </td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
     {% else %}
     <p>No new ticket has been added.</p>
     {% endif %}
   </section>
+  {% endwith %}
+  {% with section="unassigned_ticket" %}
   <section>
     <header>
       <h3>Unassigned ({{unassigned.count}})</h3>
     </header>
     {% if unassigned %}
-    <table>
-      <thead>
-        <tr>
-          <th>No.</th>
-          <th>Priority</th>
-          <th>Status</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for ticket in unassigned %}
-        <tr class="accordion">
-          <td>{{ticket.pk}}</td>
-          <td>{{ticket.get_priority_display}}</td>
-          <td>{{ticket.get_status_display}}</td>
-          <td>{{ticket}}</td>
-        </tr>
-        <tr>
-          <td colspan="5">
+    <div class="row head main">
+      <div class="cell-1">No.</div>
+      <div class="cell-2">Priority</div>
+      <div class="cell-3">Status</div>
+      <div class="cell-4">Description</div>
+    </div>
+    {% for ticket in unassigned %}
+    <div class="row head hidden">
+      <div class="cell-1">No.</div>
+      <div class="cell-2">Priority</div>
+      <div class="cell-3">Status</div>
+      <div class="cell-4">Description</div>
+    </div>
+    <div class="row accordion">
+      <div class="cell-1">{{ticket.pk}}</div>
+      <div class="cell-2">{{ticket.get_priority_display}}</div>
+      <div class="cell-3">{{ticket.get_status_display}}</div>
+      <div class="cell-4">{{ticket}}</div>
+    </div>
+    <div class="container-1">
+      <div class="container-2">
+        <div class="details">
           {% include "partials/_details.html" %}
-          </td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
     {% else %}
     <p>No unassigned tickets. Yay!</p>
     {% endif %}
   </section>
+  {% endwith %}
 </main>
 {% endblock %}

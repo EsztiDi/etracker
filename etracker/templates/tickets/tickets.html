@@ -4,41 +4,46 @@
   <header>
     <h2>ETracker - Tickets</h2>
   </header>
+  {% with section="ticket" %}
   <section>
     <header>
       <h3>All tickets ({{all_tickets.count}})</h3>
     </header>
     {% if all_tickets %}
-    <table>
-      <thead>
-        <tr>
-          <th>No.</th>
-          <th>Priority</th>
-          <th>Status</th>
-          <th>Description</th>
-          <th>Assignee</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for ticket in all_tickets %}
-        <tr class="accordion">
-          <td>{{ticket.pk}}</td>
-          <td>{{ticket.get_priority_display}}</td>
-          <td>{{ticket.get_status_display}}</td>
-          <td>{{ticket}}</td>
-          <td>{{ticket.assignee.username|default:"-"}}</td>
-        </tr>
-        <tr>
-          <td colspan="5">
+    <div class="row head main">
+      <div class="cell-1">No.</div>
+      <div class="cell-2">Priority</div>
+      <div class="cell-3">Status</div>
+      <div class="cell-4">Description</div>
+      <div class="cell-5">Assignee</div>
+    </div>
+    {% for ticket in all_tickets %}
+    <div class="row head hidden">
+      <div class="cell-1">No.</div>
+      <div class="cell-2">Priority</div>
+      <div class="cell-3">Status</div>
+      <div class="cell-4">Description</div>
+      <div class="cell-5">Assignee</div>
+    </div>
+    <div class="row accordion">
+      <div class="cell-1">{{ticket.pk}}</div>
+      <div class="cell-2">{{ticket.get_priority_display}}</div>
+      <div class="cell-3">{{ticket.get_status_display}}</div>
+      <div class="cell-4">{{ticket}}</div>
+      <div class="cell-5">{{ticket.assignee.username|default:"-"}}</div>
+    </div>
+    <div class="container-1">
+      <div class="container-2">
+        <div class="details">
           {% include "partials/_details.html" %}
-          </td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
     {% else %}
     <p>There are no tickets added.</p>
     {% endif %}
   </section>
+  {% endwith %}
 </main>
 {% endblock %}

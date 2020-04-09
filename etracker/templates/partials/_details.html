@@ -1,28 +1,33 @@
-<div class="details">
-  <div class="details-row">
-    <iframe src="{% url 'tickets:edit' ticket_id=ticket.pk %}" name="edit_ticket_{{ticket.pk}}" class="edit-iframe"></iframe>
-    <h4>Details</h4>
-    <button type="button">Edit</button>
-    {% if ticket.added_by == request.user %}
-    <a href="{% url 'tickets:delete_ticket' ticket_id=ticket.pk %}">Delete</a>
-    {% endif %}
-    <p>{{ticket.details|linebreaksbr}}</p>
-  </div>
-  <p>Date added: {{ticket.date_added|date:"d/m/y"}}</p>
-  <p>Last updated: {{ticket.date_updated|date:"d/m/y"|default:"-"}}</p>
-  <p>Added by: {{ticket.added_by}}</p>
-  <div class="comments-row">
-    <h4>Comments ({{ticket.comments.all.count}})</h4>
-    <button type="button">Comment</button>
-    {% for comment in ticket.comments.all %}
-    <p>
-      {{comment|linebreaksbr}} - {{comment.commenter}},
-      {{comment.date|date:"d/m/y"}}
-      {% if comment.commenter == request.user %}
-      <a href="{% url 'tickets:delete_comment' comment_id=comment.pk %}">Delete</a>
-      {% endif %}
-    </p>
-    {% endfor %}
-  </div>
-  <iframe src="{% url 'tickets:comment' ticket_id=ticket.pk %}" name="comment_on_{{ticket.pk}}" class="comment-iframe"></iframe>
+<div class="wide">
+  <h4>Details</h4>
+  <a href="{% url 'tickets:edit' ticket_id=ticket.pk %}" target="edit_{{section}}_{{ticket.pk}}" class="details-button edit-link">Edit</a>
 </div>
+<div class="container-1">
+  <!-- onload="resizeIframe(this)" -->
+  <iframe src="about:blank" name="edit_{{section}}_{{ticket.pk}}" class="edit-iframe"></iframe>
+</div>
+<p class="wide">{{ticket.details|linebreaksbr}}</p>
+<p>Date added: {{ticket.date_added|date:"d/m/y"}}</p>
+<p>Last updated: {{ticket.date_updated|date:"d/m/y"|default:"-"}}</p>
+<p>Added by: {{ticket.added_by}}</p>
+
+<div class="wide">
+  <h4>Comments ({{ticket.comments.all.count}})</h4>
+  <a href="{% url 'tickets:comment' ticket_id=ticket.pk %}" target="comment_on_{{section}}_{{ticket.pk}}" class="details-button edit-link">Add comment</a>
+</div>
+<div class="container-2">
+  <iframe src="about:blank" name="comment_on_{{section}}_{{ticket.pk}}" class="comment-iframe"></iframe>
+</div>
+{% for comment in ticket.comments.all|dictsortreversed:"date" %}
+<p class="wide">
+  {{comment|linebreaksbr}} - {{comment.commenter}},
+  {{comment.date|date:"d/m/y"}}
+  {% if comment.commenter == request.user %}
+  <a href="{% url 'tickets:delete_comment' comment_id=comment.pk %}" class="del-link">Delete comment</a>
+  {% endif %}
+</p>
+{% endfor %}
+
+{% if ticket.added_by == request.user %}
+<a href="{% url 'tickets:delete_ticket' ticket_id=ticket.pk %}" class="details-button del-link">Delete ticket</a>
+{% endif %}

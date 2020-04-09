@@ -14,11 +14,8 @@ def index(request):
     unassigned = Ticket.objects.filter(assignee=None).exclude(status=4).order_by("-date_added")
     new_tickets = Ticket.objects.filter(status=1).order_by("-date_added")
 
-    total = len(my_tickets) + len(assigned_tickets) + len(unassigned) + len(new_tickets)
-    numbers = range(total)
-
     context = {"my_tickets": my_tickets,
-               "assigned_tickets": assigned_tickets, "unassigned": unassigned, "new_tickets": new_tickets, "numbers": numbers, "total": total}
+               "assigned_tickets": assigned_tickets, "unassigned": unassigned, "new_tickets": new_tickets}
 
     return render(request, "tickets/index.html", context)
 
