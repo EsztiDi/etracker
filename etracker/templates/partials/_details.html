@@ -3,7 +3,6 @@
   <a href="{% url 'tickets:edit' ticket_id=ticket.pk %}" target="edit_{{section}}_{{ticket.pk}}" class="details-button edit-link">Edit</a>
 </div>
 <div class="container-1">
-  <!-- onload="resizeIframe(this)" -->
   <iframe src="about:blank" name="edit_{{section}}_{{ticket.pk}}" class="edit-iframe"></iframe>
 </div>
 <p class="wide">{{ticket.details|linebreaksbr}}</p>
@@ -29,5 +28,5 @@
 {% endfor %}
 
 {% if ticket.added_by == request.user %}
-<a href="{% url 'tickets:delete_ticket' ticket_id=ticket.pk %}" class="details-button del-link">Delete ticket</a>
+<a href="{% url 'tickets:delete_ticket' ticket_id=ticket.pk %}" onclick="confirm('Are you sure you want to delete the ticket and all of its comments?')" class="details-button del-link">Delete ticket</a>
 {% endif %}
