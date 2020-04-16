@@ -4,10 +4,10 @@
 {% include "partials/_navbar.html" %}
 <main>
   <header>
-    <h2>ETracker - Home</h2>
+    <h1>ETracker - Home</h1>
   </header>
   {% with section="my_ticket" %}
-  <section>
+  <section class="s1">
     <header>
       <h3>My tickets ({{my_tickets.count}})</h3>
     </header>
@@ -36,9 +36,7 @@
     </div>
     <div class="container-1">
       <div class="container-2">
-        <div class="details">
-          {% include "partials/_details.html" %}
-        </div>
+        {% include "partials/_details.html" %}
       </div>
     </div>
     {% endfor %}
@@ -48,7 +46,7 @@
   </section>
   {% endwith %}
   {% with section="assigned_ticket" %}
-  <section>
+  <section class="s2">
     <header>
       <h3>Assigned to me ({{assigned_tickets.count}})</h3>
     </header>
@@ -74,9 +72,7 @@
     </div>
     <div class="container-1">
       <div class="container-2">
-        <div class="details">
-          {% include "partials/_details.html" %}
-        </div>
+        {% include "partials/_details.html" %}
       </div>
     </div>
     {% endfor %}
@@ -86,7 +82,7 @@
   </section>
   {% endwith %}
   {% with section="new_ticket" %}
-  <section>
+  <section class="s3">
     <header>
       <h3>New tickets ({{new_tickets.count}})</h3>
     </header>
@@ -112,19 +108,17 @@
     </div>
     <div class="container-1">
       <div class="container-2">
-        <div class="details">
-          {% include "partials/_details.html" %}
-        </div>
+        {% include "partials/_details.html" %}
       </div>
     </div>
     {% endfor %}
     {% else %}
-    <p>No new ticket has been added.</p>
+    <p>No new tickets.</p>
     {% endif %}
   </section>
   {% endwith %}
   {% with section="unassigned_ticket" %}
-  <section>
+  <section class="s4">
     <header>
       <h3>Unassigned ({{unassigned.count}})</h3>
     </header>
@@ -150,9 +144,7 @@
     </div>
     <div class="container-1">
       <div class="container-2">
-        <div class="details">
-          {% include "partials/_details.html" %}
-        </div>
+        {% include "partials/_details.html" %}
       </div>
     </div>
     {% endfor %}
@@ -162,4 +154,5 @@
   </section>
   {% endwith %}
 </main>
+<div id="back-to-top"><i class="fas fa-angle-up"></i></div>
 {% endblock %}

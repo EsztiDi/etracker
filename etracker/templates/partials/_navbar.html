@@ -1,26 +1,32 @@
 <nav>
   <ul>
     <li>
-      <a href="{% url 'tickets:home' %}" class="nav-link">
-        <i class="fas fa-home"></i>
+      <a href="{% url 'tickets:home' %}" class="nav-link1">
+        <p><i class="fas fa-home"></i></p>
         <p>Home</p>
       </a>
     </li>
     <li>
-      <a href="{% url 'tickets:tickets' %}" class="nav-link">
-        <i class="fas fa-clipboard-list"></i>
-        <p>Tickets</p>
-      </a>
-    </li>
-    <li>
-      <a href="{% url 'tickets:new' %}" class="nav-link">
-        <i class="fas fa-plus"></i>
+      <a href="{% url 'tickets:new' %}" class="nav-link3">
+        <p><i class="fas fa-plus"></i></p>
         <p>Add</p>
       </a>
     </li>
     <li>
-      <a href="{% url 'tickets:logout' %}" class="nav-link">
-        <i class="fas fa-sign-out-alt"></i>
+      <a href="{% url 'tickets:tickets' %}" class="nav-link2">
+        <p><i class="fas fa-clipboard-list"></i></p>
+        <p>Tickets</p>
+      </a>
+    </li>
+    <li>
+      <a href="{% url 'tickets:settings' %}" class="nav-link2">
+        <p><i class="fas fa-wrench"></i></p>
+        <p>Settings</p>
+      </a>
+    </li>
+    <li>
+      <a href="{% url 'tickets:logout' %}" class="nav-link4">
+        <p><i class="fas fa-sign-out-alt"></i></p>
         <p>Logout</p>
       </a>
     </li>

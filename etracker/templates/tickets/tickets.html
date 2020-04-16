@@ -1,14 +1,16 @@
-{% extends "base.html" %} {% block title %}Tickets{% endblock %} {% block content%}
+{% extends "base.html" %}
+{% block title %}Tickets{% endblock %}
+{% block content%}
 {% include "partials/_navbar.html" %}
 <main>
   <header>
-    <h2>ETracker - Tickets</h2>
+    <h1>ETracker - Tickets</h1>
   </header>
   {% with section="ticket" %}
   <section>
     <header>
       <h3>All tickets ({{all_tickets.count}})</h3>
-      <input type="text" id="search-bar" onkeyup="search()" placeholder="🔍 Search...">
+      <input type="text" id="search-bar" placeholder="🔍 Search...">
     </header>
     {% if all_tickets %}
     <div class="row head main">
@@ -35,9 +37,7 @@
     </div>
     <div class="container-1">
       <div class="container-2">
-        <div class="details">
-          {% include "partials/_details.html" %}
-        </div>
+        {% include "partials/_details.html" %}
       </div>
     </div>
     {% endfor %}
@@ -47,4 +47,5 @@
   </section>
   {% endwith %}
 </main>
+<div id="back-to-top"><i class="fas fa-angle-up"></i></div>
 {% endblock %}

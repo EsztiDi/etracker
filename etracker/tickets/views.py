@@ -1,9 +1,11 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import update_session_auth_hash
+from django.contrib import messages
 from django.views.decorators.clickjacking import xframe_options_sameorigin
 from django.utils import timezone
 from .models import Ticket, Comment
-from .forms import TicketForm, EditForm, CommentForm
+from .forms import TicketForm, EditForm, CommentForm, UserForm
 
 
 @login_required
@@ -28,7 +30,7 @@ def tickets(request):
 
 @login_required
 def new_ticket(request):
-    if request.method == 'POST':
+    if request.method == "POST":
         form = TicketForm(request.POST)
         if form.is_valid():
             new = form.save(commit=False)
@@ -44,7 +46,7 @@ def new_ticket(request):
 @xframe_options_sameorigin
 def edit_ticket(request, ticket_id):
     ticket = get_object_or_404(Ticket, pk=ticket_id)
-    if request.method == 'POST':
+    if request.method == "POST":
         edit_form = TicketForm(request.POST, instance=ticket)
         if edit_form.is_valid() and edit_form.has_changed():
             ticket = edit_form.save(commit=False)
@@ -59,7 +61,7 @@ def edit_ticket(request, ticket_id):
 @xframe_options_sameorigin
 def add_comment(request, ticket_id):
     ticket = get_object_or_404(Ticket, pk=ticket_id)
-    if request.method == 'POST':
+    if request.method == "POST":
         comment_form = CommentForm(request.POST)
         if comment_form.is_valid():
             comment = comment_form.save(commit=False)
@@ -84,3 +86,15 @@ def delete_comment(request, comment_id):
     comment.delete()
     return redirect("/home/")
 
+
+@login_required
+def settings(request):
+    if request.method == "POST":
+        settings_form = UserForm(request.POST, instance=request.user)
+        if settings_form.is_valid():
+            new_settings = settings_form.save()
+            # update_session_auth_hash(request, new_settings)
+            messages.success(request, "Your details were successfully updated.")
+    else:
+        settings_form = UserForm(instance=request.user)
+    return render(request, "tickets/settings.html", {"settings_form": settings_form})

@@ -5,10 +5,12 @@
 <div class="container-1">
   <iframe src="about:blank" name="edit_{{section}}_{{ticket.pk}}" class="edit-iframe"></iframe>
 </div>
-<p class="wide">{{ticket.details|linebreaksbr}}</p>
-<p>Date added: {{ticket.date_added|date:"d/m/y"}}</p>
-<p>Last updated: {{ticket.date_updated|date:"d/m/y"|default:"-"}}</p>
-<p>Added by: {{ticket.added_by}}</p>
+<div class="details">
+  <p class="wide">{{ticket.details|linebreaksbr}}</p>
+  <p><label class="dates">Date added:</label>{{ticket.date_added|date:"d/m/y"}}</p>
+  <p><label class="dates">Last updated:</label>{{ticket.date_updated|date:"d/m/y"|default:"-"}}</p>
+  <p><label class="dates">Added by:</label>{{ticket.added_by}}</p>
+</div>
 
 <div class="wide">
   <h4>Comments ({{ticket.comments.all.count}})</h4>
@@ -17,16 +19,22 @@
 <div class="container-2">
   <iframe src="about:blank" name="comment_on_{{section}}_{{ticket.pk}}" class="comment-iframe"></iframe>
 </div>
-{% for comment in ticket.comments.all|dictsortreversed:"date" %}
-<p class="wide">
-  {{comment|linebreaksbr}} - {{comment.commenter}},
-  {{comment.date|date:"d/m/y"}}
-  {% if comment.commenter == request.user %}
-  <a href="{% url 'tickets:delete_comment' comment_id=comment.pk %}" class="del-link">Delete comment</a>
-  {% endif %}
-</p>
-{% endfor %}
+{% if ticket.comments.all %}
+<div class="details">
+  {% for comment in ticket.comments.all|dictsortreversed:"date" %}
+  <p class="wide">
+    {{comment|linebreaksbr}} - <label class="commenter">{{comment.commenter}},
+    {{comment.date|date:"d/m/y"}}</label>
+    {% if comment.commenter == request.user %}
+    <a href="{% url 'tickets:delete_comment' comment_id=comment.pk %}" class="del-link comment-confirmation">Delete comment</a>
+    {% endif %}
+  </p>
+  {% endfor %}
+</div>
+{% endif %}
 
 {% if ticket.added_by == request.user %}
-<a href="{% url 'tickets:delete_ticket' ticket_id=ticket.pk %}" onclick="confirm('Are you sure you want to delete the ticket and all of its comments?')" class="details-button del-link">Delete ticket</a>
+<p>
+  <a href="{% url 'tickets:delete_ticket' ticket_id=ticket.pk %}" class="details-button del-link ticket-confirmation">Delete ticket</a>
+</p>
 {% endif %}

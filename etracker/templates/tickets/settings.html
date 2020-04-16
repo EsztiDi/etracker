@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}Account Settings{% endblock %}
+{% block content%}
+{% include "partials/_navbar.html" %}
+<main>
+  <header>
+    <h1>ETracker - Account Settings</h1>
+  </header>
+  <section class="settings">
+    {{ settings_form.non_field_errors }}
+    {% if messages %}
+    <ul class="messages">
+      {% for message in messages %}
+      <li class="{{message.tags}}">{{message}}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+    <form method="POST">
+      {% csrf_token %}
+      <p>{{settings_form.username.label_tag}}{{settings_form.username}}</p>
+      <!-- <span>{{settings_form.username.help_text}}</span> -->
+      {{ settings_form.username.errors }}
+      <p>{{settings_form.password.label_tag}} ******** <a href="" class="details-button pw-button">Change password</a></p>
+      <p>{{settings_form.email.label_tag}}{{settings_form.email}}</p>
+      {{ settings_form.email.errors }}
+      <p>{{settings_form.first_name.label_tag}}{{settings_form.first_name}}</p>
+      {{ settings_form.first_name.errors }}
+      <p>{{settings_form.last_name.label_tag}}{{settings_form.last_name}}</p>
+      {{ settings_form.last_name.errors }}
+      <p class="buttons">
+        <button type="submit">Save changes</button>
+      </p>
+    </form>
+  </section>
+</main>
+<div id="back-to-top"><i class="fas fa-angle-up"></i></div>
+{% endblock %}
