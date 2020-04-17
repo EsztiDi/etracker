@@ -5,6 +5,7 @@ from django.contrib import messages
 from django.views.decorators.clickjacking import xframe_options_sameorigin
 from django.utils import timezone
 from .models import Ticket, Comment
+from django.contrib.auth.forms import PasswordChangeForm
 from .forms import TicketForm, EditForm, CommentForm, UserForm
 
 
@@ -88,13 +89,28 @@ def delete_comment(request, comment_id):
 
 
 @login_required
-def settings(request):
+def account(request):
     if request.method == "POST":
         settings_form = UserForm(request.POST, instance=request.user)
         if settings_form.is_valid():
             new_settings = settings_form.save()
-            # update_session_auth_hash(request, new_settings)
+            update_session_auth_hash(request, new_settings)
             messages.success(request, "Your details were successfully updated.")
     else:
         settings_form = UserForm(instance=request.user)
-    return render(request, "tickets/settings.html", {"settings_form": settings_form})
+    return render(request, "tickets/account.html", {"settings_form": settings_form})
+
+
+@login_required
+@xframe_options_sameorigin
+def change_password(request):
+    if request.method == "POST":
+        change_form = PasswordChangeForm(user=request.user, data=request.POST)
+        if change_form.is_valid():
+            change_form.save()
+            update_session_auth_hash(request, change_form.user)
+            messages.success(request, "Your password was successfully updated.")
+            redirect("/")
+    else:
+        change_form = PasswordChangeForm(user=request.user)
+    return render(request, "registration/change_password.html", {"change_form": change_form})

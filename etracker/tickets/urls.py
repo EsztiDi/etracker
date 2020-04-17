@@ -14,5 +14,6 @@ urlpatterns = [
     path("ticket/<int:ticket_id>/comment/", views.add_comment, name="comment"),
     path("ticket/<int:ticket_id>/delete/", views.delete_ticket, name="delete_ticket"),
     path("comment/<int:comment_id>/delete/", views.delete_comment, name="delete_comment"),
-    path("settings/", views.settings, name="settings"),
+    path("account/", views.account, name="account"),
+    path("change-password/", views.change_password, name="change_password"),
 ]

@@ -5,10 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ETracker - {% block title %}{% endblock %}</title>
-    <script
-      src="https://kit.fontawesome.com/93a0a9db14.js"
-      crossorigin="anonymous"
-    ></script>
+    <script src="https://kit.fontawesome.com/93a0a9db14.js" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <link rel="stylesheet" href="{% static 'styles/styles.css' %}" />
   </head>
@@ -21,31 +18,33 @@
       <p>Copyright &copy; {% now "Y" %}, Eszter Diana Toth</p>
     </footer>
     <script>
-      if (window.location.href == "http://127.0.0.1:8000/" || window.location.href.includes("http://127.0.0.1:8000/?next=/") || window.location.href.includes("/edit/") || window.location.href.includes("/comment/")) {
+
+      var href = window.location.href;
+
+      if (href === "http://127.0.0.1:8000/" || href.includes("http://127.0.0.1:8000/?next=/") || href.includes("/edit/") || href.includes("/comment/") || href.includes("/change-password/")) {
         document.body.className = "login";
       } else {
         document.body.className = "user";
       }
 
-      if (window.location.href == "http://127.0.0.1:8000/ticket/new/") {
+      if (href === "http://127.0.0.1:8000/ticket/new/") {
         document.getElementById("id_description").placeholder = document.getElementsByClassName("helptext")[0].innerText;
       }
 
-      if (window.location.href.includes("/edit/") || window.location.href.includes("/comment/")) {
+      if (href.includes("/edit/") || href.includes("/comment/") || href.includes("/change-password/")) {
         $(".shape").hide();
       }
 
-      $(document).ready(function(){
-        $("#id_password").attr("type", "password");
-        $("#id_password").click(function(){
-          $(this).val("");
-        });
-      });
+      // $(document).ready(function(){
+      //   $("#id_password").attr("type", "password");
+      //   $("#id_password").click(function(){
+      //     $(this).val("");
+      //   });
+      // });
 
       $(document).ready(function(){
         window.onscroll = function(){
-          // window.scrollY > 100 || window.pageYOffset > 100 || document.documentElement.scrollTop > 100 || document.body.scrollTop > 100
-          if ($("html, body").scrollTop() > 100) {
+          if ($("html, body").scrollTop() > 100 || window.scrollY > 100 || window.pageYOffset > 100 || document.documentElement.scrollTop > 100 || document.body.scrollTop > 100) {
             $("#back-to-top").fadeIn();
           } else {
             $("#back-to-top").fadeOut();
@@ -82,7 +81,7 @@
       });
 
       $(document).ready(function(){
-        $("#editform :reset").click(function(){
+        $(".editform :reset, .changeform :reset").click(function(){
           $(window.frameElement).fadeOut("slow");
           $(window.frameElement).parent().slideUp("slow");
         });
@@ -104,13 +103,17 @@
               var txtValues = $(this).text().toUpperCase().replace(/\s+/g, "");
               if (txtValues.includes(input)) {
                 $(this).show();
-                $(this).prev(".hidden").show();
+                if (window.matchMedia("(max-width: 640px)").matches) {
+                  $(this).prev(".hidden").show();
+                }
               } else {
-                $(this).prev(".hidden").hide();
                 $(this).hide();
                 $(this).next().hide();
                 $(this).next().find(".container-1, .container-2, iframe").hide();
                 $(this).removeClass("active");
+                if (window.matchMedia("(max-width: 640px)").matches) {
+                  $(this).prev(".hidden").hide();
+                }
               };
             });
         });

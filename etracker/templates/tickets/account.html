@@ -1,10 +1,10 @@
 {% extends "base.html" %}
-{% block title %}Account Settings{% endblock %}
+{% block title %}Account Details{% endblock %}
 {% block content%}
 {% include "partials/_navbar.html" %}
 <main>
   <header>
-    <h1>ETracker - Account Settings</h1>
+    <h1>ETracker - Account Details</h1>
   </header>
   <section class="settings">
     {{ settings_form.non_field_errors }}
@@ -18,9 +18,11 @@
     <form method="POST">
       {% csrf_token %}
       <p>{{settings_form.username.label_tag}}{{settings_form.username}}</p>
-      <!-- <span>{{settings_form.username.help_text}}</span> -->
       {{ settings_form.username.errors }}
-      <p>{{settings_form.password.label_tag}} ******** <a href="" class="details-button pw-button">Change password</a></p>
+      <p>{{settings_form.password.label_tag}} ******** <a href="{% url 'tickets:change_password' %}" target="change_password" class="details-button edit-link pw-button">Change password</a></p>
+      <div class="container-1">
+        <iframe src="about:blank" name="change_password" class="change-iframe"></iframe>
+      </div>
       <p>{{settings_form.email.label_tag}}{{settings_form.email}}</p>
       {{ settings_form.email.errors }}
       <p>{{settings_form.first_name.label_tag}}{{settings_form.first_name}}</p>
