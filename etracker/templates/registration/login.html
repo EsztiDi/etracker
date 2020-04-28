@@ -1,20 +1,23 @@
 {% extends "base.html" %}
 {% block title %}An Issue Tracker Project{% endblock%}
 {% block content %}
-<main>
+<div class="shape"></div>
+<main class="login">
   <section id="loginpanel">
     <h1>Welcome to ETracker!</h1>
     <h3>An issue tracker project by ET</h3>
     {% if form.errors %}
     <p>Your username and password didn't match. Please try again.</p>
-    {% endif %} {% if next %} {% if user.is_authenticated %}
-    <p>
-      Your account doesn't have access to this page. To proceed, please login with
-      an account that has access.
-    </p>
-    {% else %}
-    <p>Please log in to see this page.</p>
-    {% endif %} {% endif %}
+    {% endif %}
+    {% if next %}
+      {% if user.is_authenticated %}
+      <p>
+        Your account doesn't have access to this page. To proceed, please login with an account that has access.
+      </p>
+      {% else %}
+      <p>Please log in to see this page.</p>
+      {% endif %}
+    {% endif %}
   
     <form method="POST" action="{% url 'tickets:login' %}">
       {% csrf_token %}
@@ -25,11 +28,10 @@
       </p>
       <input type="hidden" name="next" value="{{ next }}"/>
     </form>
-    <p>or</p>
+    <p class="line"></p>
     <p>
-      <a href="{% url 'admin:login' %}">Admin Login</a>
+      <a href="{% url 'admin:login' %}" target="_blank">Admin Login</a>
     </p>
   </section>
 </main>
-<div id="back-to-top"><i class="fas fa-angle-up"></i></div>
 {% endblock %}

@@ -6,7 +6,7 @@
       {% csrf_token %}
       <p>{{comment_form.text}}</p>
       <p class="buttons">
-        <button type="submit" onclick="window.parent.location.reload(forceGet=true)" class="details-button">Save</button>
+        <button type="submit" class="details-button close">Save</button>
         <button type="reset" class="del-link details-button">Cancel</button>
       </p>
   </form>

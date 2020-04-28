@@ -1,0 +1,32 @@
+<div id="confirmation-boxes">
+  {% if all_tickets %}
+  {% for ticket in all_tickets %}
+  <div id="ticket-{{ ticket.pk }}" class="ticket-confirm-overlay">
+    <section class="confirm-box" >
+      <i class="fas fa-trash-alt"></i>
+      <h3>Are you sure?</h3>
+      <p>This action cannot be undone.</p>
+      <div class="buttons">
+        <a href="{% url 'tickets:delete_ticket' ticket_id=ticket.pk %}?next={{ request.path }}" class="details-button yes">Yes</a>
+        <span class="del-link details-button" onclick="cancel(this)">Cancel</span>
+      </div>
+    </section>
+  </div>
+  {% if ticket.comments.all %}
+  {% for comment in ticket.comments.all %}
+  <div id="comment-{{ comment.pk }}" class="comment-confirm-overlay">
+    <section class="confirm-box">
+      <i class="fas fa-trash-alt"></i>
+      <h3>Are you sure?</h3>
+      <p>This action cannot be undone.</p>
+      <div class="buttons">
+        <a href="{% url 'tickets:delete_comment' comment_id=comment.pk %}?next={{ request.path }}" class="details-button">Yes</a>
+        <span class="del-link details-button" onclick="cancel(this)">Cancel</span>
+      </div>
+    </section>
+  </div>
+  {% endfor %}
+  {% endif %}
+  {% endfor %}
+  {% endif %}
+</div>

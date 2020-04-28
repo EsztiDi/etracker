@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% block title %}Account Details{% endblock %}
 {% block content%}
+<div class="shape"></div>
 {% include "partials/_navbar.html" %}
 <main>
   <header>
@@ -15,11 +16,29 @@
       {% endfor %}
     </ul>
     {% endif %}
+
+    <div class="switch">
+      <div class="theme-icons">
+        <label>Theme:</label><i class="fas fa-sun"></i>
+        <div class="theme-switch"></div>
+        <i class="fas fa-moon"></i>
+      </div>
+    </div>
+
+    <div class="cookies">
+      <label>Change cookie setting:</label>
+      <div class="buttons">
+        <span class="details-button accept">Accept</span>
+        <span class="del-link details-button decline">Decline</span>
+      </div>
+    </div>
+    <a href="{% url 'tickets:cookies' %}" target="_blank" rel="noopener noreferrer" class="more" title="Cookie and Local Storage Policy">More details <i class="fas fa-external-link-alt"></i></a>
+    
     <form method="POST">
       {% csrf_token %}
       <p>{{settings_form.username.label_tag}}{{settings_form.username}}</p>
       {{ settings_form.username.errors }}
-      <p>{{settings_form.password.label_tag}} ******** <a href="{% url 'tickets:change_password' %}" target="change_password" class="details-button edit-link pw-button">Change password</a></p>
+      <p class="password">{{settings_form.password.label_tag}} ******** <a href="{% url 'tickets:change_password' %}" target="change_password" class="details-button edit-link pw-button">Change password</a></p>
       <div class="container-1">
         <iframe src="about:blank" name="change_password" class="change-iframe"></iframe>
       </div>
@@ -35,5 +54,4 @@
     </form>
   </section>
 </main>
-<div id="back-to-top"><i class="fas fa-angle-up"></i></div>
 {% endblock %}

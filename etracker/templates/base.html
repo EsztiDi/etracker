@@ -7,118 +7,33 @@
     <title>ETracker - {% block title %}{% endblock %}</title>
     <script src="https://kit.fontawesome.com/93a0a9db14.js" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="{% static 'styles/styles.css' %}" />
+    <link rel="stylesheet" href="{% static 'styles/main.css' %}" />
   </head>
-  <body>
-    <div class="shape shape1"></div>
-    <div class="shape shape2"></div>
-    <div class="shape shape3"></div>
+  <body class="light" onload="resize('body')">
+    <section class="cookie-banner">
+      <p>To provide the best experience, we would store your theme and cookie preferences locally in your browser. You can change this setting anytime on your Account page.
+        <a href="{% url 'tickets:cookies' %}" target="_blank" rel="noopener noreferrer" class="more" title="Cookie and Local Storage Policy">More details <i class="fas fa-external-link-alt"></i></a>
+      </p>
+      <div class="buttons">
+        <span class="details-button accept">Accept</span>
+        <span class="del-link details-button decline">Decline</span>
+      </div>
+    </section>
     {% block content %}{% endblock %}
     <footer>
-      <p>Copyright &copy; {% now "Y" %}, Eszter Diana Toth</p>
+      <p>Copyright &copy; {% now "Y" %}, Eszter Diana Toth | 
+        <span id="contact">Contact</span>
+      </p>
     </footer>
-    <script>
-
-      var href = window.location.href;
-
-      if (href === "http://127.0.0.1:8000/" || href.includes("http://127.0.0.1:8000/?next=/") || href.includes("/edit/") || href.includes("/comment/") || href.includes("/change-password/")) {
-        document.body.className = "login";
-      } else {
-        document.body.className = "user";
-      }
-
-      if (href === "http://127.0.0.1:8000/ticket/new/") {
-        document.getElementById("id_description").placeholder = document.getElementsByClassName("helptext")[0].innerText;
-      }
-
-      if (href.includes("/edit/") || href.includes("/comment/") || href.includes("/change-password/")) {
-        $(".shape").hide();
-      }
-
-      // $(document).ready(function(){
-      //   $("#id_password").attr("type", "password");
-      //   $("#id_password").click(function(){
-      //     $(this).val("");
-      //   });
-      // });
-
-      $(document).ready(function(){
-        window.onscroll = function(){
-          if ($("html, body").scrollTop() > 100 || window.scrollY > 100 || window.pageYOffset > 100 || document.documentElement.scrollTop > 100 || document.body.scrollTop > 100) {
-            $("#back-to-top").fadeIn();
-          } else {
-            $("#back-to-top").fadeOut();
-          }
-        };
-        
-        $("#back-to-top").click(function(){
-          $("html, body").animate({scrollTop:"0"});
-        });
-      });
-
-      $(document).ready(function(){
-        $(".accordion").each(function(){
-          $(this).click(function(){
-            $(this).toggleClass("active");
-            $(this).next().children(".container-2").fadeToggle("slow");
-            $(this).next().slideToggle("slow");
-            if ($(this).hasClass("active") === false){
-              setTimeout(() => {
-                $(this).next().find(".container-1, .container-2, iframe").hide();
-              }, 500);
-            };
-          });
-        });
-      });
-
-      $(document).ready(function(){
-        $(".edit-link").each(function(){
-          $(this).click(function(){
-            $(this).parent().next().children("iframe").fadeToggle("slow");
-            $(this).parent().next().slideToggle("slow");
-          });
-        });
-      });
-
-      $(document).ready(function(){
-        $(".editform :reset, .changeform :reset").click(function(){
-          $(window.frameElement).fadeOut("slow");
-          $(window.frameElement).parent().slideUp("slow");
-        });
-      });
-
-      $(document).ready(function(){
-        $(".comment-confirmation").click(function(){
-          return confirm("Are you sure you want to delete this comment?");
-        });
-        $(".ticket-confirmation").click(function(){
-          return confirm("Are you sure you want to delete the ticket and all of its comments?");
-        });
-      });
-
-      $(document).ready(function(){
-        $("#search-bar").keyup(function(){
-            var input = $("#search-bar").val().toUpperCase().replace(/\s+/g, "");
-            $(".accordion").each(function(){
-              var txtValues = $(this).text().toUpperCase().replace(/\s+/g, "");
-              if (txtValues.includes(input)) {
-                $(this).show();
-                if (window.matchMedia("(max-width: 640px)").matches) {
-                  $(this).prev(".hidden").show();
-                }
-              } else {
-                $(this).hide();
-                $(this).next().hide();
-                $(this).next().find(".container-1, .container-2, iframe").hide();
-                $(this).removeClass("active");
-                if (window.matchMedia("(max-width: 640px)").matches) {
-                  $(this).prev(".hidden").hide();
-                }
-              };
-            });
-        });
-      });
-
-    </script>
+    <div id="contact-overlay">
+      <section id="contact-links">
+        <a href="mailto:esztit@gmail.com?Subject=ETracker" target="_blank" rel="noopener noreferrer" title="Send e-mail to esztit@gmail.com"><i class="fas fa-at"></i></a>
+        <a href="https://www.linkedin.com/in/eszter-diana-toth-a06017188" target="_blank" rel="noopener noreferrer" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+        <a href="https://github.com/EsztiDi" target="_blank" rel="noopener noreferrer" title="GitHub"><i class="fab fa-github"></i></a>
+        <i id="close" class="fas fa-times"></i>
+      </section>
+    </div>
+    <div id="back-to-top" title="Back to top"><i class="fas fa-angle-up"></i></div>
+    <script src="{% static 'scripts/main.js' %}"></script>
   </body>
 </html>

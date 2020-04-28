@@ -1,5 +1,10 @@
 <div class="wide">
   <h4>Details</h4>
+  {% if request.user in ticket.watchers.all %}
+  <a href="{% url 'tickets:watch' ticket_id=ticket.pk %}?next={{ request.path }}" class="details-button">Unwatch</a>
+  {% else %}
+  <a href="{% url 'tickets:watch' ticket_id=ticket.pk %}?next={{ request.path }}" class="details-button">Watch</a>
+  {% endif %}
   <a href="{% url 'tickets:edit' ticket_id=ticket.pk %}" target="edit_{{section}}_{{ticket.pk}}" class="details-button edit-link">Edit</a>
 </div>
 <div class="container-1">
@@ -7,34 +12,41 @@
 </div>
 <div class="details">
   <p class="wide">{{ticket.details|linebreaksbr}}</p>
-  <p><label class="dates">Date added:</label>{{ticket.date_added|date:"d/m/y"}}</p>
-  <p><label class="dates">Last updated:</label>{{ticket.date_updated|date:"d/m/y"|default:"-"}}</p>
-  <p><label class="dates">Added by:</label>{{ticket.added_by}}</p>
+  <p><label>Date added:</label>{{ticket.date_added|date:"d/m/y"}}</p>
+  <p><label>Last updated:</label>{{ticket.date_updated|date:"d/m/y"|default:"-"}}</p>
+  <p><label>Added by:</label>{{ticket.added_by}}</p>
+  <p><label class="watchers">Watchers:</label>
+  {% if ticket.watchers.all %}
+  {% for watcher in ticket.watchers.all %}
+  <span class="list">{{watcher.username}}</span>
+  {% endfor %}
+  {% else %}
+  <span class="none">-</span>
+  {% endif %}
+  </p>
 </div>
 
-<div class="wide">
+<div id="comment_on_{{section}}_{{ticket.pk}}_head" class="wide">
   <h4>Comments ({{ticket.comments.all.count}})</h4>
   <a href="{% url 'tickets:comment' ticket_id=ticket.pk %}" target="comment_on_{{section}}_{{ticket.pk}}" class="details-button edit-link">Add comment</a>
 </div>
 <div class="container-2">
   <iframe src="about:blank" name="comment_on_{{section}}_{{ticket.pk}}" class="comment-iframe"></iframe>
 </div>
-{% if ticket.comments.all %}
-<div class="details">
+<div id="comment_on_{{section}}_{{ticket.pk}}" class="details">
   {% for comment in ticket.comments.all|dictsortreversed:"date" %}
   <p class="wide">
-    {{comment|linebreaksbr}} - <label class="commenter">{{comment.commenter}},
-    {{comment.date|date:"d/m/y"}}</label>
-    {% if comment.commenter == request.user %}
-    <a href="{% url 'tickets:delete_comment' comment_id=comment.pk %}" class="del-link comment-confirmation">Delete comment</a>
+    {{comment|linebreaksbr}} - <span class="commenter">{{comment.commenter}},
+    {{comment.date|date:"d/m/y"}}</span>
+    {% if comment.commenter == request.user  or request.user.is_superuser %}
+    <span id="comment-{{ comment.pk }}" class="del-link comment-confirmation" onclick="confirmation(this)">Delete comment</span>
     {% endif %}
   </p>
   {% endfor %}
 </div>
-{% endif %}
 
-{% if ticket.added_by == request.user %}
+{% if ticket.added_by == request.user or request.user.is_superuser %}
 <p>
-  <a href="{% url 'tickets:delete_ticket' ticket_id=ticket.pk %}" class="details-button del-link ticket-confirmation">Delete ticket</a>
+  <span id="ticket-{{ ticket.pk }}" class="details-button del-link ticket-confirmation">Delete ticket</span>
 </p>
 {% endif %}
