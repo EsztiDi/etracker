@@ -2,7 +2,7 @@
 {% block title %}Edit Ticket{% endblock%}
 {% block content %}
 <main class="edit">
-  <form method="POST" class="editform">
+  <form method="POST" class="edit-form">
       {% csrf_token %}
       <div class="dropdowns">
         <p>{{edit_form.status.label_tag}} {{edit_form.status}}</p>

@@ -5,7 +5,7 @@
 {% include "partials/_navbar.html" %}
 <main>
   <header>
-    <h1>ETracker - Account Details</h1>
+    <h1><i class="far fa-compass"></i> ETracker - Account Details</h1>
   </header>
   <section class="settings">
     {{ settings_form.non_field_errors }}
@@ -17,9 +17,29 @@
     </ul>
     {% endif %}
 
+    <form method="POST">
+      {% csrf_token %}
+      <p>{{settings_form.username.label_tag}}{{settings_form.username}}</p>
+      {{ settings_form.username.errors }}
+      <p class="password">{{settings_form.password.label_tag}} ******** <a href="{% url 'tickets:change_password' %}" target="change_password" class="details-button edit-link">Change password</a></p>
+      <div class="container-1">
+        <iframe src="about:blank" name="change_password" class="password-iframe"></iframe>
+      </div>
+      <p>{{settings_form.email.label_tag}}{{settings_form.email}}</p>
+      {{ settings_form.email.errors }}
+      <p>{{settings_form.first_name.label_tag}}{{settings_form.first_name}}</p>
+      {{ settings_form.first_name.errors }}
+      <p>{{settings_form.last_name.label_tag}}{{settings_form.last_name}}</p>
+      {{ settings_form.last_name.errors }}
+      <p class="buttons">
+        <button type="submit">Save changes</button>
+      </p>
+    </form>
+
     <div class="switch">
       <div class="theme-icons">
-        <label>Theme:</label><i class="fas fa-sun"></i>
+        <label>Theme:</label>
+        <i class="fas fa-sun"></i>
         <div class="theme-switch"></div>
         <i class="fas fa-moon"></i>
       </div>
@@ -33,25 +53,7 @@
       </div>
     </div>
     <a href="{% url 'tickets:cookies' %}" target="_blank" rel="noopener noreferrer" class="more" title="Cookie and Local Storage Policy">More details <i class="fas fa-external-link-alt"></i></a>
-    
-    <form method="POST">
-      {% csrf_token %}
-      <p>{{settings_form.username.label_tag}}{{settings_form.username}}</p>
-      {{ settings_form.username.errors }}
-      <p class="password">{{settings_form.password.label_tag}} ******** <a href="{% url 'tickets:change_password' %}" target="change_password" class="details-button edit-link pw-button">Change password</a></p>
-      <div class="container-1">
-        <iframe src="about:blank" name="change_password" class="change-iframe"></iframe>
-      </div>
-      <p>{{settings_form.email.label_tag}}{{settings_form.email}}</p>
-      {{ settings_form.email.errors }}
-      <p>{{settings_form.first_name.label_tag}}{{settings_form.first_name}}</p>
-      {{ settings_form.first_name.errors }}
-      <p>{{settings_form.last_name.label_tag}}{{settings_form.last_name}}</p>
-      {{ settings_form.last_name.errors }}
-      <p class="buttons">
-        <button type="submit">Save changes</button>
-      </p>
-    </form>
+
   </section>
 </main>
 {% endblock %}

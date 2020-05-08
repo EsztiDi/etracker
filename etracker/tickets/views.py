@@ -1,3 +1,5 @@
+from importlib import import_module
+from django.conf import settings
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import update_session_auth_hash
@@ -5,25 +7,27 @@ from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.views.decorators.clickjacking import xframe_options_sameorigin
 from django.utils import timezone
-from .models import Ticket, Comment
 from django.contrib.auth.forms import PasswordChangeForm
 from .forms import TicketForm, CommentForm, UserForm
+from .models import Ticket, Comment
 
 
 @login_required
 def index(request):
-    my_tickets = request.user.my_tickets.exclude(status=4).order_by("-priority")
-    assigned_tickets = request.user.assigned_tickets.exclude(status=4).order_by("-priority")
-    unassigned = Ticket.objects.filter(assignee=None).exclude(status=4)
-    new_tickets = Ticket.objects.filter(status=1)
+    group_name = request.user.groups.values_list("name", flat=True).first()
+
+    my_tickets = request.user.user_tickets.exclude(status=4).order_by("-priority", "-date_added")
+    assigned_tickets = request.user.assigned_tickets.exclude(status=4).order_by("-priority", "-date_added")
     watched_tickets = request.user.watched_tickets.exclude(status=4)
-    all_tickets = Ticket.objects.all()
+    unassigned = Ticket.objects.filter(assignee=None, added_by__groups__name__contains=group_name).exclude(status=4)
+    new_tickets = Ticket.objects.filter(status=1, added_by__groups__name__contains=group_name)
+    all_tickets = Ticket.objects.filter(added_by__groups__name__contains=group_name)
 
     context = {"my_tickets": my_tickets,
                "assigned_tickets": assigned_tickets, 
+               "watched_tickets": watched_tickets,
                "unassigned": unassigned, 
                "new_tickets": new_tickets,
-               "watched_tickets": watched_tickets,
                "all_tickets": all_tickets}
 
     return render(request, "tickets/index.html", context)
@@ -31,7 +35,8 @@ def index(request):
 
 @login_required
 def tickets(request):
-    all_tickets = Ticket.objects.all()
+    group_name = request.user.groups.values_list("name", flat=True).first()
+    all_tickets = Ticket.objects.filter(added_by__groups__name__contains=group_name)
     return render(request, "tickets/tickets.html", {"all_tickets": all_tickets})
 
 
@@ -49,14 +54,14 @@ def watch_ticket(request, ticket_id):
 @login_required
 def new_ticket(request):
     if request.method == "POST":
-        form = TicketForm(request.POST)
+        form = TicketForm(request.POST, user=request.user)
         if form.is_valid():
             new = form.save(commit=False)
             new.added_by = request.user
             new.save()
             return redirect("/home/")
     else:
-        form = TicketForm()
+        form = TicketForm(user=request.user)
     return render(request, "tickets/new_ticket.html", {"form": form})
 
 
@@ -65,13 +70,13 @@ def new_ticket(request):
 def edit_ticket(request, ticket_id):
     ticket = get_object_or_404(Ticket, pk=ticket_id)
     if request.method == "POST":
-        edit_form = TicketForm(request.POST, instance=ticket)
+        edit_form = TicketForm(request.POST, user=request.user, instance=ticket)
         if edit_form.is_valid() and edit_form.has_changed():
             ticket = edit_form.save(commit=False)
             ticket.date_updated = timezone.now()
             ticket.save()
     else:
-        edit_form = TicketForm(instance=ticket)
+        edit_form = TicketForm(user=request.user, instance=ticket)
     return render(request, "tickets/edit_ticket.html", {"edit_form": edit_form})
 
 
@@ -109,6 +114,9 @@ def delete_comment(request, comment_id):
 
 @login_required
 def account(request):
+    SessionStore = import_module(settings.SESSION_ENGINE).SessionStore
+    SessionStore().clear_expired()
+
     if request.method == "POST":
         settings_form = UserForm(request.POST, instance=request.user)
         if settings_form.is_valid():

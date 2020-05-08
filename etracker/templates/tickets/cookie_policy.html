@@ -1,10 +1,11 @@
 {% extends "base.html" %}
 {% block title %}Cookie and Local Storage Policy{% endblock %}
 {% block content%}
+<div class="shape"></div>
 <main class="login cookie-policy">
-<section>
+<section id="all-tickets">
     <h1>Cookie and Local Storage Policy</h1>
-    <p>Last updated: April 26, 2020</p>
+    <p>Last updated: 8 May 2020</p>
     <br>
     <p>This Cookie and Local Storage Policy explains what cookies and local storage are and how We use them. You should read this policy so You can understand what type of cookies We use, or the information We collect using Cookies and how that information is used. This policy has been created with the help of <a href="https://www.termsfeed.com/cookies-policy-generator/" target="_blank" rel="noopener noreferrer">Cookie Policy Generator</a>.</p>
     <br>
@@ -30,7 +31,7 @@
         <br>
         <li><strong>Local Storage</strong> means the local storage of the browser, a file created by a website in your device. Cookies are just one type of local storage, but there are others.</li>
         <br>
-        <li><strong>Website</strong> refers to ETracker, accessible from www.etracker.et.</li>
+        <li><strong>Website</strong> refers to ETracker, accessible from {{ request.get_host }}.</li>
     </ul>
     <br>
     <h1>The use of the Cookies and Local Storage</h1>
@@ -49,7 +50,7 @@
     </ul>
     <br>
     <h2>Type of Local Storage We Use</h2>
-    <p>We use sessionStorage or localStorage to save your light or dark colour theme preference as well as your approval or disapproval of persistent Cookies and Local Storage for the Website.</p>
+    <p>We use sessionStorage or localStorage to save your light or dark colour theme preference, your changes to the layout of the "ETracker - Home" page and your approval or disapproval of persistent Cookies and Local Storage for the Website.</p>
     <br>
     <ul>
     <li>

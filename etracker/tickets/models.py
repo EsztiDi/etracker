@@ -1,5 +1,4 @@
 from django.db import models
-from django.utils import timezone
 from django.conf import settings
 
 
@@ -30,7 +29,7 @@ class Ticket(models.Model):
     date_added = models.DateTimeField(auto_now_add=True)
     date_updated = models.DateTimeField("Last updated", blank=True, null=True)
     added_by = models.ForeignKey(
-        settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, related_name="my_tickets", blank=True, null=True)
+        settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, related_name="user_tickets", blank=True, null=True)
 
     class Meta:
         ordering = ["-date_added"]
@@ -43,7 +42,7 @@ class Comment(models.Model):
     text = models.TextField("Comment")
     date = models.DateTimeField(auto_now_add=True)
     commenter = models.ForeignKey(
-        settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, related_name="my_comments", blank=True, null=True, verbose_name="User")
+        settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, related_name="user_comments", blank=True, null=True, verbose_name="User")
     ticket = models.ForeignKey(
         Ticket, on_delete=models.CASCADE, related_name="comments")
 

@@ -7,7 +7,7 @@
       <h3>Are you sure?</h3>
       <p>This action cannot be undone.</p>
       <div class="buttons">
-        <a href="{% url 'tickets:delete_ticket' ticket_id=ticket.pk %}?next={{ request.path }}" class="details-button yes">Yes</a>
+        <a href="{% url 'tickets:delete_ticket' ticket_id=ticket.pk %}?next={{ request.path }}" class="details-button">Yes</a>
         <span class="del-link details-button" onclick="cancel(this)">Cancel</span>
       </div>
     </section>

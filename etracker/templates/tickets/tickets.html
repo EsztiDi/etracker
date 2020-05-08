@@ -2,17 +2,20 @@
 {% block title %}Tickets{% endblock %}
 {% block content%}
 <div class="shape"></div>
-{% include "partials/_navbar.html" %}
 {% include "partials/_confirm_boxes.html" %}
+{% include "partials/_navbar.html" %}
 <main>
   <header>
-    <h1>ETracker - Tickets</h1>
+    <h1><i class="far fa-compass"></i> ETracker - Tickets</h1>
   </header>
-  {% with section="ticket" %}
-  <section>
+  <section id="all-tickets">
+    {% with section="ticket" %}
     <header>
       <h3>All tickets ({{all_tickets.count}})</h3>
-      <input type="search" id="search-bar" placeholder="🔍 Search...">
+      <span id="search-bar">
+        <i class="fas fa-search"></i>
+        <input type="search" placeholder="Search...">
+      </span>
     </header>
     {% if all_tickets %}
     <div class="row head main">
@@ -46,7 +49,7 @@
     {% else %}
     <p>There are no tickets added.</p>
     {% endif %}
+    {% endwith %}
   </section>
-  {% endwith %}
 </main>
 {% endblock %}

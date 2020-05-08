@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.admin import UserAdmin
 from django.utils import timezone
 from .models import Ticket, Comment
+from .forms import TicketForm
 
 admin.site.site_header = "ETracker Admin"
 admin.site.site_title = "ETracker Admin Area"
@@ -36,7 +37,7 @@ class TicketAdmin(admin.ModelAdmin):
     inlines = (CommentInline, )
     search_fields = ("id", "description", "details",
                      "added_by__username", "assignee__username", )
-
+    
     def save_model(self, request, obj, form, change):
         if not change:
             obj.added_by = request.user
@@ -50,6 +51,7 @@ class CustomUserAdmin(UserAdmin):
     def save_model(self, request, obj, form, change):
         if "is_active" in form.changed_data:
             Ticket.objects.filter(assignee_id=obj.id).update(assignee=None)
+            User.objects.get(pk=obj.id).watched_tickets.clear()
         super(CustomUserAdmin, self).save_model(request, obj, form, change)
 
 

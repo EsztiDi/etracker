@@ -2,197 +2,217 @@
 {% block title %}Home{% endblock %}
 {% block content %}
 <div class="shape"></div>
-{% include "partials/_navbar.html" %}
 {% include "partials/_confirm_boxes.html" %}
+{% include "partials/_navbar.html" %}
 <main>
   <header>
-    <h1>ETracker - Home</h1>
+    <h1><i class="far fa-compass"></i> ETracker - Home</h1>
   </header>
-  {% with section="my_ticket" %}
-  <section class="s1">
-    <header>
-      <h3>My tickets ({{my_tickets.count}})</h3>
-    </header>
-    {% if my_tickets %}
-    <div class="row head main">
-      <div class="cell-1">No.</div>
-      <div class="cell-2">Priority</div>
-      <div class="cell-3">Status</div>
-      <div class="cell-4">Description</div>
-      <div class="cell-5">Assignee</div>
-    </div>
-    {% for ticket in my_tickets %}
-    <div class="row head hidden">
-      <div class="cell-1">No.</div>
-      <div class="cell-2">Priority</div>
-      <div class="cell-3">Status</div>
-      <div class="cell-4">Description</div>
-      <div class="cell-5">Assignee</div>
-    </div>
-    <div class="row accordion">
-      <div class="cell-1">{{ticket.pk}}</div>
-      <div class="cell-2">{{ticket.get_priority_display}}</div>
-      <div class="cell-3">{{ticket.get_status_display}}</div>
-      <div class="cell-4">{{ticket}}</div>
-      <div class="cell-5">{{ticket.assignee.username|default:"-"}}</div>
-    </div>
-    <div class="container-1">
-      <div class="container-2">
-        {% include "partials/_details.html" %}
+  <div id="dc1" class="drop-container">
+    <section id="s1">
+      {% with section="my_ticket" %}
+      <header>
+        <h3>My tickets ({{my_tickets.count}})</h3>
+        <i class="fas fa-arrows-alt" title="Drag & drop to reorganise"></i>
+        <i class="fas fa-arrows-alt-v"></i>
+      </header>
+      {% if my_tickets %}
+      <div class="row head main">
+        <div class="cell-1">No.</div>
+        <div class="cell-2">Priority</div>
+        <div class="cell-3">Status</div>
+        <div class="cell-4">Description</div>
+        <div class="cell-5">Assignee</div>
       </div>
-    </div>
-    {% endfor %}
-    {% else %}
-    <p>No active tickets.</p>
-    {% endif %}
-  </section>
-  {% endwith %}
-  {% with section="assigned_ticket" %}
-  <section class="s2">
-    <header>
-      <h3>Assigned to me ({{assigned_tickets.count}})</h3>
-    </header>
-    {% if assigned_tickets %}
-    <div class="row head main">
-      <div class="cell-1">No.</div>
-      <div class="cell-2">Priority</div>
-      <div class="cell-3">Status</div>
-      <div class="cell-4">Description</div>
-    </div>
-    {% for ticket in assigned_tickets %}
-    <div class="row head hidden">
-      <div class="cell-1">No.</div>
-      <div class="cell-2">Priority</div>
-      <div class="cell-3">Status</div>
-      <div class="cell-4">Description</div>
-    </div>
-    <div class="row accordion">
-      <div class="cell-1">{{ticket.pk}}</div>
-      <div class="cell-2">{{ticket.get_priority_display}}</div>
-      <div class="cell-3">{{ticket.get_status_display}}</div>
-      <div class="cell-4">{{ticket}}</div>
-    </div>
-    <div class="container-1">
-      <div class="container-2">
-        {% include "partials/_details.html" %}
+      {% for ticket in my_tickets %}
+      <div class="row head hidden">
+        <div class="cell-1">No.</div>
+        <div class="cell-2">Priority</div>
+        <div class="cell-3">Status</div>
+        <div class="cell-4">Description</div>
+        <div class="cell-5">Assignee</div>
       </div>
-    </div>
-    {% endfor %}
-    {% else %}
-    <p>No active tickets.</p>
-    {% endif %}
-  </section>
-  {% endwith %}
-  {% with section="watched_ticket" %}
-  <section>
-    <header>
-      <h3>Watched tickets ({{watched_tickets.count}})</h3>
-    </header>
-    {% if watched_tickets %}
-    <div class="row head main">
-      <div class="cell-1">No.</div>
-      <div class="cell-2">Priority</div>
-      <div class="cell-3">Status</div>
-      <div class="cell-4">Description</div>
-      <div class="cell-5">Assignee</div>
-    </div>
-    {% for ticket in watched_tickets %}
-    <div class="row head hidden">
-      <div class="cell-1">No.</div>
-      <div class="cell-2">Priority</div>
-      <div class="cell-3">Status</div>
-      <div class="cell-4">Description</div>
-      <div class="cell-5">Assignee</div>
-    </div>
-    <div class="row accordion">
-      <div class="cell-1">{{ticket.pk}}</div>
-      <div class="cell-2">{{ticket.get_priority_display}}</div>
-      <div class="cell-3">{{ticket.get_status_display}}</div>
-      <div class="cell-4">{{ticket}}</div>
-      <div class="cell-5">{{ticket.assignee.username|default:"-"}}</div>
-    </div>
-    <div class="container-1">
-      <div class="container-2">
-        {% include "partials/_details.html" %}
+      <div class="row accordion">
+        <div class="cell-1">{{ticket.pk}}</div>
+        <div class="cell-2">{{ticket.get_priority_display}}</div>
+        <div class="cell-3">{{ticket.get_status_display}}</div>
+        <div class="cell-4">{{ticket}}</div>
+        <div class="cell-5">{{ticket.assignee.username|default:"-"}}</div>
       </div>
-    </div>
-    {% endfor %}
-    {% else %}
-    <p>No tickets selected to watch.</p>
-    {% endif %}
-  </section>
-  {% endwith %}
-  {% with section="new_ticket" %}
-  <section class="s3">
-    <header>
-      <h3>New tickets ({{new_tickets.count}})</h3>
-    </header>
-    {% if new_tickets %}
-    <div class="row head main">
-      <div class="cell-1">No.</div>
-      <div class="cell-2">Priority</div>
-      <div class="cell-4">Description</div>
-      <div class="cell-5">Assignee</div>
-    </div>
-    {% for ticket in new_tickets %}
-    <div class="row head hidden">
-      <div class="cell-1">No.</div>
-      <div class="cell-2">Priority</div>
-      <div class="cell-4">Description</div>
-      <div class="cell-5">Assignee</div>
-    </div>
-    <div class="row accordion">
-      <div class="cell-1">{{ticket.pk}}</div>
-      <div class="cell-2">{{ticket.get_priority_display}}</div>
-      <div class="cell-4">{{ticket}}</div>
-      <div class="cell-5">{{ticket.assignee.username|default:"-"}}</div>
-    </div>
-    <div class="container-1">
-      <div class="container-2">
-        {% include "partials/_details.html" %}
+      <div class="container-1">
+        <div class="container-2">
+          {% include "partials/_details.html" %}
+        </div>
       </div>
-    </div>
-    {% endfor %}
-    {% else %}
-    <p>No new tickets.</p>
-    {% endif %}
-  </section>
-  {% endwith %}
-  {% with section="unassigned_ticket" %}
-  <section class="s4">
-    <header>
-      <h3>Unassigned ({{unassigned.count}})</h3>
-    </header>
-    {% if unassigned %}
-    <div class="row head main">
-      <div class="cell-1">No.</div>
-      <div class="cell-2">Priority</div>
-      <div class="cell-3">Status</div>
-      <div class="cell-4">Description</div>
-    </div>
-    {% for ticket in unassigned %}
-    <div class="row head hidden">
-      <div class="cell-1">No.</div>
-      <div class="cell-2">Priority</div>
-      <div class="cell-3">Status</div>
-      <div class="cell-4">Description</div>
-    </div>
-    <div class="row accordion">
-      <div class="cell-1">{{ticket.pk}}</div>
-      <div class="cell-2">{{ticket.get_priority_display}}</div>
-      <div class="cell-3">{{ticket.get_status_display}}</div>
-      <div class="cell-4">{{ticket}}</div>
-    </div>
-    <div class="container-1">
-      <div class="container-2">
-        {% include "partials/_details.html" %}
+      {% endfor %}
+      {% else %}
+      <p>No active tickets.</p>
+      {% endif %}
+      {% endwith %}
+    </section>
+  </div>
+  <div id="dc2" class="drop-container">
+    <section id="s2">
+      {% with section="assigned_ticket" %}
+      <header>
+        <h3>Assigned to me ({{assigned_tickets.count}})</h3>
+        <i class="fas fa-arrows-alt" title="Drag & drop to reorganise"></i>
+        <i class="fas fa-arrows-alt-v"></i>
+      </header>
+      {% if assigned_tickets %}
+      <div class="row head main">
+        <div class="cell-1">No.</div>
+        <div class="cell-2">Priority</div>
+        <div class="cell-3">Status</div>
+        <div class="cell-4">Description</div>
       </div>
-    </div>
-    {% endfor %}
-    {% else %}
-    <p>No unassigned tickets. Yay!</p>
-    {% endif %}
-  </section>
-  {% endwith %}
+      {% for ticket in assigned_tickets %}
+      <div class="row head hidden">
+        <div class="cell-1">No.</div>
+        <div class="cell-2">Priority</div>
+        <div class="cell-3">Status</div>
+        <div class="cell-4">Description</div>
+      </div>
+      <div class="row accordion">
+        <div class="cell-1">{{ticket.pk}}</div>
+        <div class="cell-2">{{ticket.get_priority_display}}</div>
+        <div class="cell-3">{{ticket.get_status_display}}</div>
+        <div class="cell-4">{{ticket}}</div>
+      </div>
+      <div class="container-1">
+        <div class="container-2">
+          {% include "partials/_details.html" %}
+        </div>
+      </div>
+      {% endfor %}
+      {% else %}
+      <p>No active tickets.</p>
+      {% endif %}
+      {% endwith %}
+    </section>
+  </div>
+  <div id="dc3" class="drop-container">
+    <section id="s3">
+      {% with section="watched_ticket" %}
+      <header>
+        <h3>Watched tickets ({{watched_tickets.count}})</h3>
+        <i class="fas fa-arrows-alt" title="Drag & drop to reorganise"></i>
+        <i class="fas fa-arrows-alt-v"></i>
+      </header>
+      {% if watched_tickets %}
+      <div class="row head main">
+        <div class="cell-1">No.</div>
+        <div class="cell-2">Priority</div>
+        <div class="cell-3">Status</div>
+        <div class="cell-4">Description</div>
+        <div class="cell-5">Assignee</div>
+      </div>
+      {% for ticket in watched_tickets %}
+      <div class="row head hidden">
+        <div class="cell-1">No.</div>
+        <div class="cell-2">Priority</div>
+        <div class="cell-3">Status</div>
+        <div class="cell-4">Description</div>
+        <div class="cell-5">Assignee</div>
+      </div>
+      <div class="row accordion">
+        <div class="cell-1">{{ticket.pk}}</div>
+        <div class="cell-2">{{ticket.get_priority_display}}</div>
+        <div class="cell-3">{{ticket.get_status_display}}</div>
+        <div class="cell-4">{{ticket}}</div>
+        <div class="cell-5">{{ticket.assignee.username|default:"-"}}</div>
+      </div>
+      <div class="container-1">
+        <div class="container-2">
+          {% include "partials/_details.html" %}
+        </div>
+      </div>
+      {% endfor %}
+      {% else %}
+      <p>No tickets selected to watch.</p>
+      {% endif %}
+      {% endwith %}
+    </section>
+  </div>
+  <div id="dc4" class="drop-container">
+    <section id="s4">
+      {% with section="new_ticket" %}
+      <header>
+        <h3>New tickets ({{new_tickets.count}})</h3>
+        <i class="fas fa-arrows-alt" title="Drag & drop to reorganise"></i>
+        <i class="fas fa-arrows-alt-v"></i>
+      </header>
+      {% if new_tickets %}
+      <div class="row head main">
+        <div class="cell-1">No.</div>
+        <div class="cell-2">Priority</div>
+        <div class="cell-4">Description</div>
+        <div class="cell-5">Assignee</div>
+      </div>
+      {% for ticket in new_tickets %}
+      <div class="row head hidden">
+        <div class="cell-1">No.</div>
+        <div class="cell-2">Priority</div>
+        <div class="cell-4">Description</div>
+        <div class="cell-5">Assignee</div>
+      </div>
+      <div class="row accordion">
+        <div class="cell-1">{{ticket.pk}}</div>
+        <div class="cell-2">{{ticket.get_priority_display}}</div>
+        <div class="cell-4">{{ticket}}</div>
+        <div class="cell-5">{{ticket.assignee.username|default:"-"}}</div>
+      </div>
+      <div class="container-1">
+        <div class="container-2">
+          {% include "partials/_details.html" %}
+        </div>
+      </div>
+      {% endfor %}
+      {% else %}
+      <p>No new tickets.</p>
+      {% endif %}
+      {% endwith %}
+    </section>
+  </div>
+  <div id="dc5" class="drop-container">
+    <section id="s5">
+      {% with section="unassigned_ticket" %}
+      <header>
+        <h3>Unassigned ({{unassigned.count}})</h3>
+        <i class="fas fa-arrows-alt" title="Drag & drop to reorganise"></i>
+        <i class="fas fa-arrows-alt-v"></i>
+      </header>
+      {% if unassigned %}
+      <div class="row head main">
+        <div class="cell-1">No.</div>
+        <div class="cell-2">Priority</div>
+        <div class="cell-3">Status</div>
+        <div class="cell-4">Description</div>
+      </div>
+      {% for ticket in unassigned %}
+      <div class="row head hidden">
+        <div class="cell-1">No.</div>
+        <div class="cell-2">Priority</div>
+        <div class="cell-3">Status</div>
+        <div class="cell-4">Description</div>
+      </div>
+      <div class="row accordion">
+        <div class="cell-1">{{ticket.pk}}</div>
+        <div class="cell-2">{{ticket.get_priority_display}}</div>
+        <div class="cell-3">{{ticket.get_status_display}}</div>
+        <div class="cell-4">{{ticket}}</div>
+      </div>
+      <div class="container-1">
+        <div class="container-2">
+          {% include "partials/_details.html" %}
+        </div>
+      </div>
+      {% endfor %}
+      {% else %}
+      <p>No unassigned tickets. Yay!</p>
+      {% endif %}
+      {% endwith %}
+    </section>
+  </div>
 </main>
 {% endblock %}

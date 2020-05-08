@@ -39,7 +39,7 @@
     {{comment|linebreaksbr}} - <span class="commenter">{{comment.commenter}},
     {{comment.date|date:"d/m/y"}}</span>
     {% if comment.commenter == request.user  or request.user.is_superuser %}
-    <span id="comment-{{ comment.pk }}" class="del-link comment-confirmation" onclick="confirmation(this)">Delete comment</span>
+    <span id="comment-{{comment.pk}}" class="del-link comment-confirmation" onclick="confirmation(this)">Delete comment</span>
     {% endif %}
   </p>
   {% endfor %}

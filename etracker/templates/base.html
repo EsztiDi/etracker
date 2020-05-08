@@ -5,13 +5,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ETracker - {% block title %}{% endblock %}</title>
-    <script src="https://kit.fontawesome.com/93a0a9db14.js" crossorigin="anonymous"></script>
+    <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="{% static 'styles/main.css' %}" />
+    <link rel="stylesheet" href="{% static 'styles/fa-all.css' %}"/>
+    <link rel="stylesheet" href="{% static 'styles/main.css' %}"/>
   </head>
-  <body class="light" onload="resize('body')">
+  <body class="light">
     <section class="cookie-banner">
-      <p>To provide the best experience, we would store your theme and cookie preferences locally in your browser. You can change this setting anytime on your Account page.
+      <p>To provide the best experience, we would store your theme, layout and cookie preferences locally in your browser. You can change this setting anytime on your Account page.
         <a href="{% url 'tickets:cookies' %}" target="_blank" rel="noopener noreferrer" class="more" title="Cookie and Local Storage Policy">More details <i class="fas fa-external-link-alt"></i></a>
       </p>
       <div class="buttons">
@@ -31,6 +32,21 @@
         <a href="https://www.linkedin.com/in/eszter-diana-toth-a06017188" target="_blank" rel="noopener noreferrer" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
         <a href="https://github.com/EsztiDi" target="_blank" rel="noopener noreferrer" title="GitHub"><i class="fab fa-github"></i></a>
         <i id="close" class="fas fa-times"></i>
+      </section>
+    </div>
+    <div id="positions-overlay">
+      <section id="positions">
+        <p>Change order</p>
+        <p><input type="radio" value="dc1" name="position" id="p1">
+        <label for="p1">1</label></p>
+        <p><input type="radio" value="dc2" name="position" id="p2">
+        <label for="p2">2</label></p>
+        <p><input type="radio" value="dc3" name="position" id="p3">
+        <label for="p3">3</label></p>
+        <p><input type="radio" value="dc4" name="position" id="p4">
+        <label for="p4">4</label></p>
+        <p><input type="radio" value="dc5" name="position" id="p5">
+        <label for="p5">5</label></p>
       </section>
     </div>
     <div id="back-to-top" title="Back to top"><i class="fas fa-angle-up"></i></div>

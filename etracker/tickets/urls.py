@@ -1,6 +1,11 @@
 from django.urls import path
 from django.contrib.auth import views as auth_views
 from . import views
+from django.contrib.staticfiles.storage import staticfiles_storage
+from django.views.generic.base import RedirectView
+# Remove in production:
+from django.conf import settings
+from django.conf.urls.static import static
 
 app_name = "tickets"
 
@@ -18,4 +23,5 @@ urlpatterns = [
     path("account/", views.account, name="account"),
     path("change-password/", views.change_password, name="change_password"),
     path("cookie-policy/", views.cookie_policy, name="cookies"),
-]
+    path("favicon.ico/", RedirectView.as_view(url=staticfiles_storage.url("images/favicon.ico")), name="favicon"),
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) #Remove in production
