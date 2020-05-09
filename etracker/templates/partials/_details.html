@@ -39,7 +39,7 @@
     {{comment|linebreaksbr}} - <span class="commenter">{{comment.commenter}},
     {{comment.date|date:"d/m/y"}}</span>
     {% if comment.commenter == request.user  or request.user.is_superuser %}
-    <span id="comment-{{comment.pk}}" class="del-link comment-confirmation" onclick="confirmation(this)">Delete comment</span>
+    <span data-id="comment-{{comment.pk}}" class="del-link comment-confirmation" onclick="confirmation(this)">Delete comment</span>
     {% endif %}
   </p>
   {% endfor %}
@@ -47,6 +47,6 @@
 
 {% if ticket.added_by == request.user or request.user.is_superuser %}
 <p>
-  <span id="ticket-{{ ticket.pk }}" class="details-button del-link ticket-confirmation">Delete ticket</span>
+  <span data-id="ticket-{{ ticket.pk }}" class="details-button del-link ticket-confirmation">Delete ticket</span>
 </p>
 {% endif %}

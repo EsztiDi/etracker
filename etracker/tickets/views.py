@@ -1,5 +1,3 @@
-from importlib import import_module
-from django.conf import settings
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import update_session_auth_hash
@@ -114,9 +112,6 @@ def delete_comment(request, comment_id):
 
 @login_required
 def account(request):
-    SessionStore = import_module(settings.SESSION_ENGINE).SessionStore
-    SessionStore().clear_expired()
-
     if request.method == "POST":
         settings_form = UserForm(request.POST, instance=request.user)
         if settings_form.is_valid():

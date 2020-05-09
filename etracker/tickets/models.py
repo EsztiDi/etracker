@@ -22,7 +22,7 @@ class Ticket(models.Model):
     assignee = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, related_name="assigned_tickets", limit_choices_to={"is_active": True}, blank=True, null=True)
     watchers = models.ManyToManyField(
-        settings.AUTH_USER_MODEL, related_name="watched_tickets", limit_choices_to={"is_active": True}, blank=True, null=True)
+        settings.AUTH_USER_MODEL, related_name="watched_tickets")
     description = models.CharField(
         max_length=255, help_text="A short summary of the issue")
     details = models.TextField("More details")
