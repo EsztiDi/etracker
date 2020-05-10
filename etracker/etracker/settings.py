@@ -20,12 +20,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'isc^#76gns6fu==8k=wxd&w_w6ochcxj=r(^u2!5nv2+vjrx#g'
+SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ["127.0.0.1", "eu.pythonanywhere.com"]
+ALLOWED_HOSTS = ["127.0.0.1", ".eu.pythonanywhere.com"]
 
 
 # Application definition
@@ -119,10 +119,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = "/static/"
-STATIC_ROOT = os.path.join(BASE_DIR, "static")
-STATICFILES_DIRS = [
-    "/home/etracker/etracker.eu.pythonanywhere.com/etracker/etracker/static/",
-]
 
 LOGIN_REDIRECT_URL = "/home/"
 LOGIN_URL = "/"
@@ -139,3 +135,7 @@ SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 SECURE_HSTS_PRELOAD = True
 SECURE_SSL_REDIRECT = True
 SECURE_REFERRER_POLICY = "same-origin"
+
+MEDIA_URL = '/media/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
