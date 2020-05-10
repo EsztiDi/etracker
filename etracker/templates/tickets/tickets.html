@@ -19,7 +19,7 @@
     </header>
     {% if all_tickets %}
     <div class="row head main">
-      <div class="cell-1">No.</div>
+      <!-- <div class="cell-1">No.</div> -->
       <div class="cell-2">Priority</div>
       <div class="cell-3">Status</div>
       <div class="cell-4">Description</div>
@@ -27,14 +27,14 @@
     </div>
     {% for ticket in all_tickets %}
     <div class="row head hidden">
-      <div class="cell-1">No.</div>
+      <!-- <div class="cell-1">No.</div> -->
       <div class="cell-2">Priority</div>
       <div class="cell-3">Status</div>
       <div class="cell-4">Description</div>
       <div class="cell-5">Assignee</div>
     </div>
     <div class="row accordion">
-      <div class="cell-1">{{ticket.pk}}</div>
+      <!-- <div class="cell-1">{{ticket.pk}}</div> -->
       <div class="cell-2">{{ticket.get_priority_display}}</div>
       <div class="cell-3">{{ticket.get_status_display}}</div>
       <div class="cell-4">{{ticket}}</div>

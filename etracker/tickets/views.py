@@ -1,3 +1,5 @@
+from importlib import import_module
+from django.conf import settings
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import update_session_auth_hash
@@ -142,4 +144,6 @@ def change_password(request):
 
 
 def cookie_policy(request):
+    SessionStore = import_module(settings.SESSION_ENGINE).SessionStore
+    SessionStore().clear_expired()
     return render(request, "tickets/cookie_policy.html")

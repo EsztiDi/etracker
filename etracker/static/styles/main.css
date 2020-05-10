@@ -289,7 +289,7 @@ main.login {
 
 section#loginpanel {
   text-align: center;
-  padding: 3rem;
+  padding: 3rem 2rem;
   margin: unset;
   border-radius: 125px;
   -webkit-box-shadow: var(--big-shadow);
@@ -316,6 +316,7 @@ section#loginpanel {
 }
 #loginpanel p {
   margin-top: 2rem;
+  background: transparent;
 }
 .line {
   border-top: 3px groove;
@@ -439,10 +440,10 @@ section, section * {
           filter: var(--hover-effect);
 }
 
-.cell-1 {
+/* .cell-1 {
   -ms-flex-preferred-size: 8%;
       flex-basis: 8%;
-}
+} */
 .cell-2 {
   -ms-flex-preferred-size: 17%;
       flex-basis: 17%;
@@ -996,7 +997,7 @@ main.login.cookie-policy > section {
     padding: 3rem 1rem;
   }
   section#loginpanel {
-    padding: 4rem;
+    padding: 4rem 3rem;
     font-size: 1.1rem;
   }
   section:not(#loginpanel), .drop-container {
@@ -1005,8 +1006,8 @@ main.login.cookie-policy > section {
             flex: 0 1 50%;
   }
   section#all-tickets {
-    -ms-flex-preferred-size: 80%;
-        flex-basis: 80%;
+    -ms-flex-preferred-size: 70%;
+        flex-basis: 70%;
   }
   main.login.cookie-policy {
     padding: 1rem 2.5rem 3rem;
