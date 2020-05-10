@@ -53,6 +53,15 @@
       </section>
     </div>
     <div id="back-to-top" title="Back to top"><i class="fas fa-angle-up"></i></div>
+    <div id="wrapfabtest">
+      <div class="adBanner"></div>
+    </div>
     <script src="{% static 'scripts/main.js' %}"></script>
+    <script>
+      if ($("#wrapfabtest").height() > 0) {
+      } else {
+        alert('Please disable your ad blocker for this site to work properly. Thank you!');
+      }
+    </script>
   </body>
 </html>

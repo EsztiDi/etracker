@@ -74,8 +74,12 @@ $(document).ready(function () {
   };
 
   // Showing cookies message if choice hasn't been made yet and the window is not a contentWindow
-  if (!cookiesAccepted && !window.frameElement) {
+  if (!cookiesAccepted && !window.frameElement && location.href !== "https://etracker.eu.pythonanywhere.com/") {
     $(".cookie-banner").show();
+  };
+
+  if (window.location.href === "https://etracker.eu.pythonanywhere.com/?next=/home/") {
+    $(".cookie-banner").hide();
   };
 
   // Contact links pop-up modal box
@@ -127,7 +131,6 @@ $(document).ready(function () {
 
   $(":not(header)").on("dragstart drop", function (event) {
     event.preventDefault();
-    console.log("prevented");
   });
 
   // Drag and drop funcionality to the sections on Home page via their header
@@ -158,7 +161,7 @@ $(document).ready(function () {
   $(".drop-container").each(function(index) {
     var id = $(this).attr("id");
     var currentSection = $(this).find("section").attr("id");
-    var inLocal = window.localStorage.getItem(id);
+    var inLocal = window.localStorage.getItem(id) ? window.localStorage.getItem(id) : currentSection;
     var inSession = window.sessionStorage.getItem(id) ? window.sessionStorage.getItem(id) : currentSection;
     
     // Swapping sections and saving position based on previous user settings
@@ -357,7 +360,8 @@ $(document).ready(function () {
     var input = $("#search-bar input").val().toUpperCase().replace(/\s+/g, "");
 
     $(".accordion").each(function () {
-      var txtValues = $(this).text().toUpperCase().replace(/\s+/g, "");
+      var detailsTxt = $(this).next().find(".details > .wide").text().toUpperCase().replace(/DELETE COMMENT/g, "").replace(/\s+/g, "");
+      var txtValues = $(this).text().toUpperCase().replace(/\s+/g, "") + detailsTxt;
 
       if (txtValues.includes(input)) {
         $(this).show();

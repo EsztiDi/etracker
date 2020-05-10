@@ -15,6 +15,7 @@ from .models import Ticket, Comment
 @login_required
 def index(request):
     group_name = request.user.groups.values_list("name", flat=True).first()
+    group_id = group_name[0]
 
     my_tickets = request.user.user_tickets.exclude(status=4).order_by("-priority", "-date_added")
     assigned_tickets = request.user.assigned_tickets.exclude(status=4).order_by("-priority", "-date_added")
@@ -28,7 +29,8 @@ def index(request):
                "watched_tickets": watched_tickets,
                "unassigned": unassigned, 
                "new_tickets": new_tickets,
-               "all_tickets": all_tickets}
+               "all_tickets": all_tickets, 
+               "group_id": group_id}
 
     return render(request, "tickets/index.html", context)
 
@@ -36,8 +38,9 @@ def index(request):
 @login_required
 def tickets(request):
     group_name = request.user.groups.values_list("name", flat=True).first()
+    group_id = group_name[0]
     all_tickets = Ticket.objects.filter(added_by__groups__name__contains=group_name)
-    return render(request, "tickets/tickets.html", {"all_tickets": all_tickets})
+    return render(request, "tickets/tickets.html", {"all_tickets": all_tickets, "group_id": group_id})
 
 
 @login_required
