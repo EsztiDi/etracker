@@ -6,7 +6,6 @@
   <section id="loginpanel">
     <i class="far fa-compass"></i>
     <h1>ETracker</h1>
-    <!-- <h3>An issue tracker project by ET</h3> -->
     {% if form.errors %}
     <p>Your username and password didn't match. Please try again.</p>
     {% endif %}
@@ -29,10 +28,7 @@
       </p>
       <input type="hidden" name="next" value="{{ next }}"/>
     </form>
-    <p class="line"></p>
-    <p>
-      <a href="{% url 'admin:login' %}" target="_blank">Admin Login</a>
-    </p>
+
   </section>
 </main>
 {% endblock %}

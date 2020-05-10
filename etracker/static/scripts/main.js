@@ -127,6 +127,7 @@ $(document).ready(function () {
 
   $(":not(header)").on("dragstart drop", function (event) {
     event.preventDefault();
+    console.log("prevented");
   });
 
   // Drag and drop funcionality to the sections on Home page via their header
