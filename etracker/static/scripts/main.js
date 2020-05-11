@@ -22,6 +22,7 @@ if (theme) {
   // Changing the theme switch widget according to the theme
   if (theme === "dark" && $(".theme-switch")) {
     $(".theme-switch").addClass("dark-theme");
+    $("meta[name='theme-color']").attr("content", "#3F3E39");
   };
 };
 
@@ -120,6 +121,13 @@ $(document).ready(function () {
     $("iframe").contents().find("body").toggleClass("dark");
 
     $(this).toggleClass("dark-theme");
+
+    // Changing colour for address bar
+    if ($(".theme-switch").hasClass("dark-theme")) {
+      $("meta[name='theme-color']").attr("content", "#3F3E39");
+    } else {
+      $("meta[name='theme-color']").attr("content", "#F2EEDA");
+    };
 
     // Saving theme setting to browser storage
     if (window.localStorage.getItem("cookiesAccepted") === "true") {
@@ -356,7 +364,7 @@ $(document).ready(function () {
   });
 
   // Filter funcionality with the search bar on Tickets Page
-  $("#search-bar input").keyup(function () {
+  $("#search-bar input").on("keyup input", function () {
     var input = $("#search-bar input").val().toUpperCase().replace(/\s+/g, "");
 
     $(".accordion").each(function () {
