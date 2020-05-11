@@ -1093,6 +1093,7 @@ main.login.cookie-policy > section {
   #ticket-details h3 {
     -ms-flex-preferred-size: 100%;
         flex-basis: 100%;
+    text-align: center;
   }
   div.wide {
     -ms-flex-pack: distribute;
