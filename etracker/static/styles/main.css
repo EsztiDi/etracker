@@ -475,7 +475,7 @@ section, section * {
       justify-content: space-around;
   padding: 0.5rem;
 }
-.details > *, .container-2 > *, .comments > p.wide {
+.details > *, .container-2 > * {
   margin-top: 0.5rem;
 }
 
@@ -659,7 +659,7 @@ section.settings {
 .settings p, div.switch, .cookies {
   margin: 2rem 0.5rem 0rem;
 }
-.settings > p:first-of-type, .settings .container-1 {
+.settings > p:first-of-type, .settings .container-1, .comments > p.wide {
   margin-top: 1rem;
 }
 
