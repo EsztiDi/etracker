@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+{% block title %}Ticket Details{% endblock %}
+{% block content%}
+<div class="shape"></div>
+
+<div id="confirmation-boxes">
+  <div id="ticket-{{ ticket.pk }}" class="ticket-confirm-overlay">
+    <section class="confirm-box" >
+      <i class="fas fa-trash-alt"></i>
+      <h3>Are you sure?</h3>
+      <p>This action cannot be undone.</p>
+      <div class="buttons">
+        <a href="{% url 'tickets:delete_ticket' ticket_id=ticket.pk %}?next=/home/" class="details-button">Yes</a>
+        <span class="del-link details-button" onclick="cancel(this)">Cancel</span>
+      </div>
+    </section>
+  </div>
+  {% if ticket.comments.all %}
+  {% for comment in ticket.comments.all %}
+  <div id="comment-{{ comment.pk }}" class="comment-confirm-overlay">
+    <section class="confirm-box">
+      <i class="fas fa-trash-alt"></i>
+      <h3>Are you sure?</h3>
+      <p>This action cannot be undone.</p>
+      <div class="buttons">
+        <a href="{% url 'tickets:delete_comment' comment_id=comment.pk %}?next={{ request.path }}" class="details-button">Yes</a>
+        <span class="del-link details-button" onclick="cancel(this)">Cancel</span>
+      </div>
+    </section>
+  </div>
+  {% endfor %}
+  {% endif %}
+</div>
+
+{% include "partials/_navbar.html" %}
+<main>
+  <header>
+    <h1><i class="far fa-compass"></i> ETracker - Ticket Details</h1>
+  </header>
+  <section id="ticket-details">
+    {% with section="ticket" %}
+    <header>
+      <h3>Ticket-{{ticket.pk}}{{group_id}}</h3>
+      {% if request.user in ticket.watchers.all %}
+      <a href="{% url 'tickets:watch' ticket_id=ticket.pk %}?next={{ request.path }}" class="details-button">Unwatch</a>
+      {% else %}
+      <a href="{% url 'tickets:watch' ticket_id=ticket.pk %}?next={{ request.path }}" class="details-button">Watch</a>
+      {% endif %}
+      <a href="{% url 'tickets:edit' ticket_id=ticket.pk %}" target="edit_{{section}}_{{ticket.pk}}" class="details-button edit-link">Edit</a>
+    </header>
+    <div class="container-1">
+      <iframe src="about:blank" name="edit_{{section}}_{{ticket.pk}}" class="edit-iframe"></iframe>
+    </div>
+    <div class="details">
+      <p><label>Id:</label>{{ticket.pk}}{{group_id}}</p>
+      <p><label>Priority:</label>{{ticket.get_priority_display}}</p>
+      <p><label>Status:</label>{{ticket.get_status_display}}</p>
+      <p class="wide-line"><label>Assignee:</label>{{ticket.assignee.username|default:"-"}}</p>
+      <p class="wide-line"><label class="watchers">Watchers:</label>
+      {% if ticket.watchers.all %}
+      {% for watcher in ticket.watchers.all %}
+      <span class="list">{{watcher.username}}</span>
+      {% endfor %}
+      {% else %}
+      <span class="none">-</span>
+      {% endif %}
+      </p>
+      <p class="wide-line"><label>Description:</label>{{ticket}}</p>
+      <p class="wide-line"><label>Details:</label>{{ticket.details|linebreaksbr}}</p>
+      <p><label>Date added:</label>{{ticket.date_added|date:"d/m/y"}}</p>
+      <p><label>Last updated:</label>{{ticket.date_updated|date:"d/m/y"|default:"-"}}</p>
+      <p><label>Added by:</label>{{ticket.added_by}}</p>
+
+      <div id="comment_on_{{section}}_{{ticket.pk}}_head" class="wide">
+        <h4>Comments ({{ticket.comments.all.count}})</h4>
+        <a href="{% url 'tickets:comment' ticket_id=ticket.pk %}" target="comment_on_{{section}}_{{ticket.pk}}" class="details-button edit-link">Add comment</a>
+      </div>
+      <div class="container-2">
+        <iframe src="about:blank" name="comment_on_{{section}}_{{ticket.pk}}" class="comment-iframe"></iframe>
+      </div>
+      <div id="comment_on_{{section}}_{{ticket.pk}}" class="wide-line">
+        {% for comment in ticket.comments.all|dictsortreversed:"date" %}
+        <p class="wide">
+          {{comment|linebreaksbr}} - <span class="commenter">{{comment.commenter}},
+          {{comment.date|date:"d/m/y"}}</span>
+          {% if comment.commenter == request.user  or request.user.is_superuser %}
+          <span data-id="comment-{{comment.pk}}" class="del-link comment-confirmation" onclick="confirmation(this)">Delete comment</span>
+          {% endif %}
+        </p>
+        {% endfor %}
+      </div>
+
+      {% if ticket.added_by == request.user or request.user.is_superuser %}
+      <p class="wide-line">
+        <span data-id="ticket-{{ ticket.pk }}" class="details-button del-link ticket-confirmation">Delete ticket</span>
+      </p>
+      {% endif %}
+    </div>
+    {% endwith %}
+  </section>
+</main>
+{% endblock %}

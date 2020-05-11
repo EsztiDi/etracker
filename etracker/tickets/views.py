@@ -36,6 +36,14 @@ def index(request):
 
 
 @login_required
+def ticket_details(request, ticket_id):
+    group_name = request.user.groups.values_list("name", flat=True).first()
+    group_id = group_name[0]
+    ticket = get_object_or_404(Ticket, pk=ticket_id)
+    return render(request, "tickets/ticket_details.html", {"ticket": ticket, "group_id": group_id})
+
+
+@login_required
 def tickets(request):
     group_name = request.user.groups.values_list("name", flat=True).first()
     group_id = group_name[0]

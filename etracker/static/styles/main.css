@@ -215,7 +215,7 @@ button, .details-button {
 }
 .details-button {
   padding: 0.3rem 1.2rem;
-  margin-left: 0.5rem;
+  margin: 0.3rem;
 }
 button:hover, .details-button:hover {
   background: var(--button-bg);
@@ -479,6 +479,14 @@ section, section * {
   margin-top: 0.5rem;
 }
 
+#ticket-details .details > * {
+  margin: 0 0 1rem;
+}
+#ticket-details p:last-child {
+  margin: unset;
+  text-align: center;
+}
+
 .wide:first-child {
   margin-top: unset;
 }
@@ -488,12 +496,18 @@ section, section * {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  flex-wrap: wrap;
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+}
+
+.wide-line {
+  flex-basis: 100%;
+  margin: 0.5rem 0;
 }
 
 label.watchers {
@@ -1004,7 +1018,7 @@ main.login.cookie-policy > section {
         -ms-flex: 0 1 50%;
             flex: 0 1 50%;
   }
-  section#all-tickets {
+  section#all-tickets, section#ticket-details {
     -ms-flex-preferred-size: 70%;
         flex-basis: 70%;
   }
@@ -1065,9 +1079,21 @@ main.login.cookie-policy > section {
         -ms-flex: 1 1 100%;
             flex: 1 1 100%;
   }
-  section > header {
+  section:not(#ticket-details) > header {
     border: unset;
     padding-bottom: unset;
+  }
+  section#ticket-details > header {
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+  }
+  #ticket-details h3 {
+    -ms-flex-preferred-size: 100%;
+        flex-basis: 100%;
+  }
+  .wide {
+    -ms-flex-pack: distribute;
+        justify-content: space-around;
   }
   .row > * {
     padding: 0.1rem 0.4rem;
@@ -1101,8 +1127,10 @@ main.login.cookie-policy > section {
     border: 2px solid var(--faded-colour);
   }
   .comment-confirmation {
-    -ms-flex-preferred-size: 10%;
-        flex-basis: 10%;
+    -webkit-box-flex: 1;
+        -ms-flex: 1 1 10%;
+            flex: 1 1 10%;
+    text-align: right;
   }
   section.new-ticket, .settings {
     padding: 1rem;
@@ -1178,6 +1206,9 @@ main.login.cookie-policy > section {
 
 @media screen and (max-width: 350px) {
   .password-form .dropdowns input {
+    width: 100%;
+  }
+  .comment-form {
     width: 100%;
   }
 }

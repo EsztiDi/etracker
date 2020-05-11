@@ -311,9 +311,10 @@ $(document).ready(function () {
   // Resizing iframes to the height of the form in the contentWindow and hiding their footer
   if (window.frameElement) {
     var formHeight = $(this).find("form").css("height");
-
-    $(window.frameElement).animate({ height: formHeight });
+    
     $("footer").hide();
+    $("#wrapfabtest").hide();
+    $(window.frameElement).animate({ height: formHeight });
   };
 
   // Closing iframe when clicking "Cancel"

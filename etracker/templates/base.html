@@ -58,10 +58,9 @@
     </div>
     <script src="{% static 'scripts/main.js' %}"></script>
     <script>
-      if ($("#wrapfabtest").height() > 0) {
-      } else {
+      if (!($("#wrapfabtest").height() > 0) && !window.frameElement) {
         alert("Please disable your ad blocker for this site to work properly. Thank you!");
-      }
+      };
     </script>
   </body>
 </html>

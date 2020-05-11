@@ -12,6 +12,7 @@ urlpatterns = [
     path("home/", views.index, name="home"),
     path("tickets/", views.tickets, name="tickets"),
     path("ticket/new/", views.new_ticket, name="new"),
+    path("ticket/<int:ticket_id>/details/", views.ticket_details, name="ticket_details"),
     path("ticket/<int:ticket_id>/watch/", views.watch_ticket, name="watch"),
     path("ticket/<int:ticket_id>/edit/", views.edit_ticket, name="edit"),
     path("ticket/<int:ticket_id>/comment/", views.add_comment, name="comment"),
