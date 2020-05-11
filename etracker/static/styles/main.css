@@ -482,7 +482,7 @@ section, section * {
 #ticket-details .details > * {
   margin: 0 0 1rem;
 }
-#ticket-details p:last-child {
+#ticket-details .wide-line:last-child {
   margin: unset;
   text-align: center;
 }
@@ -1091,7 +1091,7 @@ main.login.cookie-policy > section {
     -ms-flex-preferred-size: 100%;
         flex-basis: 100%;
   }
-  .wide {
+  div.wide {
     -ms-flex-pack: distribute;
         justify-content: space-around;
   }

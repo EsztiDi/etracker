@@ -34,7 +34,7 @@
   <iframe src="about:blank" name="comment_on_{{section}}_{{ticket.pk}}" class="comment-iframe"></iframe>
 </div>
 <div id="comment_on_{{section}}_{{ticket.pk}}" class="details">
-  {% for comment in ticket.comments.all|dictsortreversed:"date" %}
+  {% for comment in ticket.comments.all|dictsort:"date" %}
   <p class="wide">
     {{comment|linebreaksbr}} - <span class="commenter">{{comment.commenter}},
     {{comment.date|date:"d/m/y"}}</span>
