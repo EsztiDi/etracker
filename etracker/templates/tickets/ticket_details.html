@@ -78,7 +78,7 @@
       <div class="container-2">
         <iframe src="about:blank" name="comment_on_{{section}}_{{ticket.pk}}" class="comment-iframe"></iframe>
       </div>
-      <div id="comment_on_{{section}}_{{ticket.pk}}" class="wide-line">
+      <div id="comment_on_{{section}}_{{ticket.pk}}" class="wide-line comments">
         {% for comment in ticket.comments.all|dictsort:"date" %}
         <p class="wide">
           {{comment|linebreaksbr}} - <span class="commenter">{{comment.commenter}},
@@ -91,7 +91,7 @@
       </div>
 
       {% if ticket.added_by == request.user or request.user.is_superuser %}
-      <p class="wide-line">
+      <p class="wide-line del-button">
         <span data-id="ticket-{{ ticket.pk }}" class="details-button del-link ticket-confirmation">Delete ticket</span>
       </p>
       {% endif %}
