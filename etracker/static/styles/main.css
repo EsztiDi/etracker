@@ -482,7 +482,7 @@ section, section * {
 #ticket-details .details > * {
   margin: 0 0 1rem;
 }
-#ticket-details .wide-line:last-child {
+#ticket-details p.wide-line:last-child {
   margin: unset;
   text-align: center;
 }
