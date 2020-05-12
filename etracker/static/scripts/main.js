@@ -331,14 +331,12 @@ $(document).ready(function () {
   });
 
   // Dinamically reloading comments, their header with the count and the deletion confirmation modal boxes after adding a new comment
-  $(".comment-form :submit").each(function () {
-    $(this).click(function () {
+  $(".comment-form").submit(function () {
       var id = "#" + window.frameElement.name;
 
       window.parent.$(id).load("# " + id + " > *");
       window.parent.$(id + "_head").children("h4").load("# " + id + "_head h4:first-child");
       window.parent.$("#confirmation-boxes").load("# #confirmation-boxes > *");
-    });
   });
 
   // Confirming deletion of a ticket with modal box

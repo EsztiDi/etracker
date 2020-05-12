@@ -479,16 +479,22 @@ section, section * {
   margin-top: 0.5rem;
 }
 
+#ticket-details {
+  padding: 1.5rem 2rem;
+}
 #ticket-details .details > * {
   margin: 0 0 1rem;
+}
+#ticket-details .details > *:last-child {
+  margin: unset;
 }
 .wide-line {
   -ms-flex-preferred-size: 100%;
       flex-basis: 100%;
   margin: 0.5rem 0;
 }
-.wide-line.comments {
-  padding: 0.5rem;
+.wide-line label {
+  margin-left: unset;
 }
 .wide-line.del-button {
   margin: unset;
@@ -1136,7 +1142,7 @@ main.login.cookie-policy > section {
             flex: 1 1 10%;
     text-align: right;
   }
-  section.new-ticket, .settings {
+  section.new-ticket, .settings, #ticket-details {
     padding: 1rem;
   }
   .settings p:first-of-type {
