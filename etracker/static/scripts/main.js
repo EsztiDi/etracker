@@ -15,6 +15,15 @@ function cancel(button) {
   $(button).parents(".comment-confirm-overlay, .ticket-confirm-overlay").fadeOut();
 };
 
+// Dinamically reloading comments, their header with the count and the deletion confirmation modal boxes after adding a new comment
+$(".comment-form").submit(function () {
+    var id = "#" + window.frameElement.name;
+
+    window.parent.$(id).load("# " + id + " > *");
+    window.parent.$(id + "_head").children("h4").load("# " + id + "_head h4:first-child");
+    window.parent.$("#confirmation-boxes").load("# #confirmation-boxes > *");
+});
+
 // Changing colour theme on the body based on the setting saved
 if (theme) {
   document.body.className = theme;
@@ -328,15 +337,6 @@ $(document).ready(function () {
     window.parent.location.reload(forceGET=true);
     $(window.frameElement).fadeOut(200);
     $(window.frameElement).parent().fadeOut(150);
-  });
-
-  // Dinamically reloading comments, their header with the count and the deletion confirmation modal boxes after adding a new comment
-  $(".comment-form").submit(function () {
-      var id = "#" + window.frameElement.name;
-
-      window.parent.$(id).load("# " + id + " > *");
-      window.parent.$(id + "_head").children("h4").load("# " + id + "_head h4:first-child");
-      window.parent.$("#confirmation-boxes").load("# #confirmation-boxes > *");
   });
 
   // Confirming deletion of a ticket with modal box
