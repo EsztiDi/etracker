@@ -58,6 +58,7 @@
     </div>
     <script src="{% static 'scripts/main.js' %}"></script>
     <script>
+      // Checking for adblocker otherwise .js and .css files are blocked
       if (!($("#wrapfabtest").height() > 0) && !window.frameElement) {
         alert("Please disable your ad blocker for this site to work properly. Thank you!");
       };

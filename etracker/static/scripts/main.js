@@ -84,12 +84,8 @@ $(document).ready(function () {
   };
 
   // Showing cookies message if choice hasn't been made yet and the window is not a contentWindow
-  if (!cookiesAccepted && !window.frameElement && location.href !== "https://etracker.eu.pythonanywhere.com/") {
+  if (!cookiesAccepted && !window.frameElement) {
     $(".cookie-banner").show();
-  };
-
-  if (window.location.href === "https://etracker.eu.pythonanywhere.com/?next=/home/") {
-    $(".cookie-banner").hide();
   };
 
   // Contact links pop-up modal box
