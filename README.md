@@ -10,9 +10,9 @@ https://etracker.eu.pythonanywhere.com/
 
 Only users added by the admin are able to log in. Please contact me by e-mail (esztit@gmail.com) for extra accounts, groups or about any issues.
 
-Please be my guest to look around - 
-Username: Guest
-Password: GuestLogin987
+Please be my guest to look around:
+* Username: Guest
+* Password: GuestLogin987
 
 ### Usage
 
