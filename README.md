@@ -11,12 +11,13 @@ https://etracker.eu.pythonanywhere.com/
 Only users added by the admin are able to log in. Please contact me by e-mail (esztit@gmail.com) for extra accounts, groups or about any issues.
 
 Please be my guest to look around:
-Username: Guest
-Password: GuestLogin987
+* Username: Guest
+* Password: GuestLogin987
 
 ### Usage
 
 Tickets can be added by any member of the group and can be seen only by the members of that group.
+
 They can be edited or commented on by any member but can be deleted only by the member who added it or by the admin.
 
 ## Built With
@@ -39,4 +40,5 @@ Pull requests, comments are welcome!
 * Family
 * Friends
 * Everyone on Stack Overflow
+
 Thank you!
