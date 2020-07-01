@@ -23,6 +23,7 @@ They can be edited or commented on by any member but can be deleted only by the 
 ## Built With
 
 * [Django 3.0.4.](https://www.djangoproject.com/) - Web framework
+* [SQLite](https://www.sqlite.org/) - Database
 * [jQuery](https://jquery.com/) - JavaScript library
 * [Font Awesome](https://fontawesome.com/) - Icon set
 * And everything nice
