@@ -9,9 +9,11 @@
     <title>ETracker - {% block title %}{% endblock %}</title>
     <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}"/>
     <link rel="apple-touch-icon" href="{% static 'images/apple-touch-icon.png' %}"/>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="{% static 'styles/fa-all.css' %}"/>
-    <link rel="stylesheet" href="{% static 'styles/main.css' %}"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <!-- <link rel="stylesheet" href="{% static 'styles/fa-all.css' %}"/> -->
+    <!-- <link rel="stylesheet" href="{% static 'styles/main.css' %}"/> -->
+    <script src="https://kit.fontawesome.com/93a0a9db14.js" crossorigin="anonymous"></script>
+    {% include "partials/_styles.html" %}
   </head>
   <body class="light">
     <section class="cookie-banner">
@@ -56,12 +58,13 @@
     <div id="wrapfabtest">
       <div class="adBanner"></div>
     </div>
-    <script src="{% static 'scripts/main.js' %}"></script>
-    <script>
+    <!-- <script src="{% static 'scripts/main.js' %}"></script> -->
+    {% include "partials/_scripts.html" %}
+    <!-- <script>
       // Checking for adblocker otherwise .js and .css files are blocked
       if (!($("#wrapfabtest").height() > 0) && !window.frameElement) {
         alert("Please disable your ad blocker for this site to work properly. Thank you!");
       };
-    </script>
+    </script> -->
   </body>
 </html>
